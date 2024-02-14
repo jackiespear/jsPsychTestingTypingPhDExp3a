@@ -60,25 +60,17 @@ const result = studywords2.map(({word1, word2})=>{
   return doc;
 }); 
 
-//console.table(result); //This works!!!
+console.table(result); //This works!!!
 
 //subsetting the words into 3 arrays for produce words, read words, and new words
-//var produce_words = result.slice(0, 20); //produce words             //slice these into 10 blocks of 4 words each for testing effect exp
+var produce_words = result.slice(0, 20); //produce words             //slice these into 10 blocks of 4 words each for testing effect exp
 //console.table(produce_words);
 
-var read_words = result.slice(20, 24); //read words
+var read_words = result.slice(20, 40); //read words
 //console.table(read_words);
 
 var new_words = result.slice(40, 80); //new lures for test
 //console.table(new_words);
-
-// this is new for the testing effect experiment - constructing the mixed-list first
-
-var produce_words1 = result.slice(0, 4);
-var produce_words2 = result.slice(4, 8);
-var produce_words3 = result.slice(8, 12);
-var produce_words4 = result.slice(12, 16);
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 //creating text variables to concatenate onto each word for the test phase
@@ -168,6 +160,66 @@ for (var i = 0; i < read_words.length; i++) {
 };
 //console.table(read_words);
 
+//this is new - new to break the study words into blocks of 4 for the testing effect procedure
+var produce_words1 = produce_words.slice(0, 4); //study block 1
+var produce_words2 = produce_words.slice(4, 8); //study block 2
+var produce_words3 = produce_words.slice(8, 12); //study block 3
+var produce_words4 = produce_words.slice(12, 16); //study block 4
+var produce_words5 = produce_words.slice(16, 20); //study block 5
+console.table(produce_words1)
+console.table(produce_words2)
+//console.table(produce_words3)
+//console.table(produce_words4)
+//console.table(produce_words5)
+
+//randomize list of study pairs and choose 2 to be tested for mixed-list condition
+produce_words1_2 = jsPsych.randomization.repeat(produce_words1, 1); //this will shuffle the rows
+produce_words2_2 = jsPsych.randomization.repeat(produce_words2, 1); 
+produce_words3_2 = jsPsych.randomization.repeat(produce_words3, 1); 
+produce_words4_2 = jsPsych.randomization.repeat(produce_words4, 1); 
+produce_words5_2 = jsPsych.randomization.repeat(produce_words5, 1); 
+
+produce_words1_mixed = produce_words1_2.slice(0, 2); //now selecting top 2 (only half of the words are being tested in the mixed-list condition)
+produce_words2_mixed = produce_words2_2.slice(0, 2);
+produce_words3_mixed = produce_words3_2.slice(0, 2);
+produce_words4_mixed = produce_words4_2.slice(0, 2);
+produce_words5_mixed = produce_words5_2.slice(0, 2);
+
+//this is good for all 4 words - will work for pure testing condition
+for (var i = 0; i < produce_words1_mixed.length; i++) {
+  if (produce_words1_mixed[i].category === "produce") {
+    produce_words1_mixed[i].word2 = produce_words1_mixed[i].word2.replace(/.{4}$/, "?");
+  }
+}
+console.table(produce_words1_mixed)
+
+for (var i = 0; i < produce_words2_mixed.length; i++) {
+  if (produce_words2_mixed[i].category === "produce") {
+    produce_words2_mixed[i].word2 = produce_words2_mixed[i].word2.replace(/.{4}$/, "?");
+  }
+}
+console.table(produce_words2_mixed)
+
+for (var i = 0; i < produce_words3_mixed.length; i++) {
+  if (produce_words3_mixed[i].category === "produce") {
+    produce_words3_mixed[i].word2 = produce_words3_mixed[i].word2.replace(/.{4}$/, "?");
+  }
+}
+
+for (var i = 0; i < produce_words4_mixed.length; i++) {
+  if (produce_words4_mixed[i].category === "produce") {
+    produce_words4_mixed[i].word2 = produce_words4_mixed[i].word2.replace(/.{4}$/, "?");
+  }
+}
+
+for (var i = 0; i < produce_words5_mixed.length; i++) {
+  if (produce_words5_mixed[i].category === "produce") {
+    produce_words5_mixed[i].word2 = produce_words5_mixed[i].word2.replace(/.{4}$/, "?");
+  }
+}
+
+
+
 //Make the list or study words to present during the study phase
 var study_words_mixed = produce_words.concat(read_words);
 
@@ -193,7 +245,7 @@ for (let i = 0; i < study_words_mixed.length; i++) {
 
 for (var i = 0; i < study_words_mixed.length; i++) {
   if (study_words_mixed[i].category === "produce") {
-    study_words_mixed[i].word2 = study_words_mixed[i].word2.replace(/.{3}$/, "_ _ _?");
+    study_words_mixed[i].word2 = study_words_mixed[i].word2.replace(/.{4}$/, "?");
   }
 }
 

@@ -40,7 +40,7 @@ function shuffle_variable (studywords_list) {
     studywords_list[i].word3 = WL[My_ord[2]];
   }
   return(studywords_list)
-}
+} 
 studywords = [];
 studywords = shuffle_variable(words); //this will shuffle the columns
 //console.log(studywords);
@@ -166,6 +166,13 @@ var produce_words2 = produce_words.slice(4, 8); //study block 2
 var produce_words3 = produce_words.slice(8, 12); //study block 3
 var produce_words4 = produce_words.slice(12, 16); //study block 4
 var produce_words5 = produce_words.slice(16, 20); //study block 5
+var read_words1 = read_words.slice(0, 4);
+var read_words2 = read_words.slice(4, 8);
+var read_words3 = read_words.slice(8, 12);
+var read_words4 = read_words.slice(12, 16);
+var read_words5 = read_words.slice(16, 20);
+console.table(read_words1);
+
 console.table(produce_words1)
 console.table(produce_words2)
 //console.table(produce_words3)
@@ -174,18 +181,26 @@ console.table(produce_words2)
 
 //randomize list of study pairs and choose 2 to be tested for mixed-list condition
 produce_words1_2 = jsPsych.randomization.repeat(produce_words1, 1); //this will shuffle the rows
-produce_words2_2 = jsPsych.randomization.repeat(produce_words2, 1); 
-produce_words3_2 = jsPsych.randomization.repeat(produce_words3, 1); 
-produce_words4_2 = jsPsych.randomization.repeat(produce_words4, 1); 
-produce_words5_2 = jsPsych.randomization.repeat(produce_words5, 1); 
+produce_words2_2 = jsPsych.randomization.repeat(produce_words2, 1); //pure test block 2
+produce_words3_2 = jsPsych.randomization.repeat(produce_words3, 1); //pure test block 3
+produce_words4_2 = jsPsych.randomization.repeat(produce_words4, 1); //pure test block 4
+produce_words5_2 = jsPsych.randomization.repeat(produce_words5, 1); //pure test block 5
+read_words1_2 = jsPsych.randomization.repeat(read_words1, 1); //pure test block 6
+read_words2_2 = jsPsych.randomization.repeat(read_words2, 1); //pure test block 7
+read_words3_2 = jsPsych.randomization.repeat(read_words3, 1); //pure test block 8
+read_words4_2 = jsPsych.randomization.repeat(read_words4, 1); //pure test block 9
+read_words5_2 = jsPsych.randomization.repeat(read_words5, 1); //pure test block 10
 
 produce_words1_mixed = produce_words1_2.slice(0, 2); //now selecting top 2 (only half of the words are being tested in the mixed-list condition)
-produce_words2_mixed = produce_words2_2.slice(0, 2);
-produce_words3_mixed = produce_words3_2.slice(0, 2);
-produce_words4_mixed = produce_words4_2.slice(0, 2);
-produce_words5_mixed = produce_words5_2.slice(0, 2);
+produce_words2_mixed = produce_words2_2.slice(0, 2); //mixed test block 2
+produce_words3_mixed = produce_words3_2.slice(0, 2); //mixed test block 3
+produce_words4_mixed = produce_words4_2.slice(0, 2); //mixed test block 4
+produce_words5_mixed = produce_words5_2.slice(0, 2); //mixed test block 5
 
-//this is good for all 4 words - will work for pure testing condition
+
+
+
+//mixed-list reformatting of word-pairs
 for (var i = 0; i < produce_words1_mixed.length; i++) {
   if (produce_words1_mixed[i].category === "produce") {
     produce_words1_mixed[i].word2 = produce_words1_mixed[i].word2.replace(/.{4}$/, "?");
@@ -217,6 +232,70 @@ for (var i = 0; i < produce_words5_mixed.length; i++) {
     produce_words5_mixed[i].word2 = produce_words5_mixed[i].word2.replace(/.{4}$/, "?");
   }
 }
+
+//pure-test reformatting of word pairs
+for (var i = 0; i < produce_words1_2.length; i++) {
+  if (produce_words1_2[i].category === "produce") {
+    produce_words1_2[i].word2 = produce_words1_2[i].word2.replace(/.{4}$/, "?");
+  }
+}
+console.table(produce_words1_2);
+
+for (var i = 0; i < produce_words2_2.length; i++) {
+  if (produce_words2_2[i].category === "produce") {
+    produce_words2_2[i].word2 = produce_words2_2[i].word2.replace(/.{4}$/, "?");
+  }
+}
+
+for (var i = 0; i < produce_words3_2.length; i++) {
+  if (produce_words3_2[i].category === "produce") {
+    produce_words3_2[i].word2 = produce_words3_2[i].word2.replace(/.{4}$/, "?");
+  }
+}
+
+for (var i = 0; i < produce_words4_2.length; i++) {
+  if (produce_words4_2[i].category === "produce") {
+    produce_words4_2[i].word2 = produce_words4_2[i].word2.replace(/.{4}$/, "?");
+  }
+}
+
+for (var i = 0; i < produce_words5_2.length; i++) {
+  if (produce_words5_2[i].category === "produce") {
+    produce_words5_2[i].word2 = produce_words5_2[i].word2.replace(/.{4}$/, "?");
+  }
+}
+
+for (var i = 0; i < read_words1_2.length; i++) {
+  if (read_words1_2[i].category === "read") {
+    read_words1_2[i].word2 = read_words1_2[i].word2.replace(/.{4}$/, "?");
+  }
+}
+console.table(read_words1_2);
+
+for (var i = 0; i < read_words2_2.length; i++) {
+  if (read_words2_2[i].category === "read") {
+    read_words2_2[i].word2 = read_words2_2[i].word2.replace(/.{4}$/, "?");
+  }
+}
+
+for (var i = 0; i < read_words3_2.length; i++) {
+  if (read_words3_2[i].category === "read") {
+    read_words3_2[i].word2 = read_words3_2[i].word2.replace(/.{4}$/, "?");
+  }
+}
+
+for (var i = 0; i < read_words4_2.length; i++) {
+  if (read_words4_2[i].category === "read") {
+    read_words4_2[i].word2 = read_words4_2[i].word2.replace(/.{4}$/, "?");
+  }
+}
+
+for (var i = 0; i < read_words5_2.length; i++) {
+  if (read_words5_2[i].category === "read") {
+    read_words5_2[i].word2 = read_words5_2[i].word2.replace(/.{4}$/, "?");
+  }
+}
+
 
 
 
@@ -690,6 +769,29 @@ var practice_test_instructions_post = {
   data: {"phase": "Practice_Test_Instructions",
 },
 };
+
+
+//New Study Phase
+//create variable to hold study trials
+var study_trials = [
+
+  {type: 'survey-html-form',
+  button_label: 'Press enter to continue',
+    preamble: function(){
+        var html = `
+          <p style='font-size: 48px;'>${jsPsych.timelineVariable('word1')} - ${jsPsych.timelineVariable('word2')} </p>
+          `
+        return html;
+    },
+    html:  '<p> <input type="text" onkeydown="return (event.keycode!=13);" id="test-resp-box" name="response" size="10" style=color:white;/></p>', //color being white will not mirror typed word to the screen
+    post_trial_gap: 500, // changing this to 3 seconds so that each trail is equal (e.g. produce vs. read),
+    trial_duration: 3000, //change back to 3000
+    data: {phase:"study", category: jsPsych.timelineVariable("category"), type: jsPsych.timelineVariable("type"), word1: jsPsych.timelineVariable("word1"), word2: jsPsych.timelineVariable("word2")},
+    autofocus: 'test-resp-box',
+};
+
+
+]
 
 
 //Study Phase

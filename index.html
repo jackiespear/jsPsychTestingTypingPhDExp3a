@@ -166,6 +166,11 @@ var produce_words2 = produce_words.slice(4, 8); //study block 2
 var produce_words3 = produce_words.slice(8, 12); //study block 3
 var produce_words4 = produce_words.slice(12, 16); //study block 4
 var produce_words5 = produce_words.slice(16, 20); //study block 5
+var produce_words6 = read_words.slice(0, 4);
+var produce_words7 = read_words.slice(4, 8);
+var produce_words8 = read_words.slice(8, 12);
+var produce_words9 = read_words.slice(12, 16);
+var produce_words10 = read_words.slice(16, 20);
 var read_words1 = read_words.slice(0, 4);
 var read_words2 = read_words.slice(4, 8);
 var read_words3 = read_words.slice(8, 12);
@@ -175,6 +180,7 @@ console.table(read_words1);
 
 console.table(produce_words1)
 console.table(produce_words2)
+console.table(produce_words10)
 //console.table(produce_words3)
 //console.table(produce_words4)
 //console.table(produce_words5)
@@ -185,6 +191,13 @@ produce_words2_2 = jsPsych.randomization.repeat(produce_words2, 1); //pure test 
 produce_words3_2 = jsPsych.randomization.repeat(produce_words3, 1); //pure test block 3
 produce_words4_2 = jsPsych.randomization.repeat(produce_words4, 1); //pure test block 4
 produce_words5_2 = jsPsych.randomization.repeat(produce_words5, 1); //pure test block 5
+produce_words6_2 = jsPsych.randomization.repeat(read_words1, 1);
+produce_words7_2 = jsPsych.randomization.repeat(read_words2, 1);
+produce_words8_2 = jsPsych.randomization.repeat(read_words3, 1);
+produce_words9_2 = jsPsych.randomization.repeat(read_words4, 1);
+produce_words10_2 = jsPsych.randomization.repeat(read_words5, 1);
+
+
 read_words1_2 = jsPsych.randomization.repeat(read_words1, 1); //pure test block 6
 read_words2_2 = jsPsych.randomization.repeat(read_words2, 1); //pure test block 7
 read_words3_2 = jsPsych.randomization.repeat(read_words3, 1); //pure test block 8
@@ -196,6 +209,7 @@ produce_words2_mixed = produce_words2_2.slice(0, 2); //mixed test block 2
 produce_words3_mixed = produce_words3_2.slice(0, 2); //mixed test block 3
 produce_words4_mixed = produce_words4_2.slice(0, 2); //mixed test block 4
 produce_words5_mixed = produce_words5_2.slice(0, 2); //mixed test block 5
+
 
 
 
@@ -302,16 +316,16 @@ for (var i = 0; i < read_words5_2.length; i++) {
 //Make the list or study words to present during the study phase
 //var study_words_mixed = produce_words.concat(read_words);
 
-for (let i = 0; i < study_words_mixed.length; i++) {
-  const { word1, word2, ...rest } = study_words_mixed[i];
+for (let i = 0; i < produce_words1.length; i++) {
+  const { word1, word2, ...rest } = produce_words1[i];
   const newObject = Object.assign({ word1, word_2: word2, ...rest }); //renaming word2 to word_2
-  study_words_mixed[i] = newObject;
+  produce_words1[i] = newObject;
 }
 
-for (let i = 0; i < study_words_mixed.length; i++) {
-  const { word1, word_2, ...rest } = study_words_mixed[i];
+for (let i = 0; i < produce_words1.length; i++) {
+  const { word1, word_2, ...rest } = produce_words1[i];
   const newObject = Object.assign({ word1, word2: word_2, ...rest }); //renaming back to word2. this fixes the issue
-  study_words_mixed[i] = newObject;
+  produce_words1[i] = newObject;
 }
 
 
@@ -322,11 +336,11 @@ for (let i = 0; i < study_words_mixed.length; i++) {
   }
 } */
 
-for (var i = 0; i < study_words_mixed.length; i++) {
-  if (study_words_mixed[i].category === "produce") {
-    study_words_mixed[i].word2 = study_words_mixed[i].word2.replace(/.{4}$/, "?");
+/*for (var i = 0; i < produce_words1.length; i++) {
+  if (produce_words1[i].category === "produce") {
+    produce_words1[i].word2 = produce_words1[i].word2.replace(/.{4}$/, "?");
   }
-}
+}*/
 
 
 //console.table(study_words_mixed);
@@ -410,7 +424,7 @@ study_words_pureread = JSON.parse(study_words_pureread);
 //  Randomly Assign one of the three between-subjects conditions: mixed-list, pure-produce, or pure-read  //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-var condition_assignment = jsPsych.randomization.sampleWithoutReplacement(['pureread', 'pureproduce', 'mixed'], 1)[0];
+var condition_assignment = jsPsych.randomization.sampleWithoutReplacement(['pureproduce', 'pureproduce', 'pureproduce'], 1)[0];
 jsPsych.data.addProperties({
   condition: condition_assignment
 });
@@ -418,9 +432,12 @@ jsPsych.data.addProperties({
 console.log(condition_assignment);
 
 //trial information for each condition -  will call a different list depending on condition
-var list_1 = study_words_pureproduce;
+var list_1 = produce_words1; //changed this march 4, 2024
 var list_2 = study_words_pureread;
-var list_3 = study_words_mixed;
+var list_3 = produce_words1;
+
+//add temp variables here for each intermediate 'testing effect' phase
+
 
 var list_1T = test_words_pureproduce;
 var list_2T = test_words_pureread;
@@ -788,7 +805,7 @@ var study_trials = [
     trial_duration: 3000, //change back to 3000
     data: {phase:"study", category: jsPsych.timelineVariable("category"), type: jsPsych.timelineVariable("type"), word1: jsPsych.timelineVariable("word1"), word2: jsPsych.timelineVariable("word2")},
     autofocus: 'test-resp-box',
-};
+},
 
 
 ]
@@ -819,6 +836,58 @@ var study_instructions123 = {
    timeline_variables: stimuli,
    randomize_order: true,
  };
+
+ //testing effect instructions
+ var testing_effect_instructions = {
+  type: "html-keyboard-response",
+  stimulus: testing_effect_instruction_text,
+  choices: ['j'],
+  data: {"phase": "Testing_Effect_Instructions",
+  },
+};
+
+ //testing effect procedure block
+ var testing_effect_block = {
+    type: 'survey-html-form',
+    button_label: 'Press enter to continue',
+    preamble: function(){
+        var html = `
+          <p style='font-size: 48px;'>${jsPsych.timelineVariable('word1')} - ${jsPsych.timelineVariable('word2')} </p>
+          `
+        return html;
+    },
+    html:  '<p> <input type="text" onkeydown="return (event.keycode!=13);" id="test-resp-box" name="response" size="10" style=color:white;/></p>', //color being white will not mirror typed word to the screen
+    post_trial_gap: 500, // changing this to 3 seconds so that each trail is equal (e.g. produce vs. read),
+    trial_duration: 3000, //change back to 3000
+    data: {phase:"study", category: jsPsych.timelineVariable("category"), type: jsPsych.timelineVariable("type"), word1: jsPsych.timelineVariable("word1"), word2: jsPsych.timelineVariable("word2")},
+    autofocus: 'test-resp-box',
+    //timeline_variables: study_instructions,
+    //randomize_order:true,
+};
+
+ //study block instructions
+ var study_block_instructions = {
+  type: "html-keyboard-response",
+  stimulus: study_block_instruction_text,
+  choices: ['j'],
+  data: {"phase": "Study_Block_Instructions",
+  },
+};
+
+var testing_effect_procedure = {
+   timeline: [testing_effect_block],
+   timeline_variables: produce_words1_2,
+   randomize_order: true,
+ };
+
+var pure_testing_effect_procedure_block1 = {
+   timeline: [study_block_instructions, study_procedure, testing_effect_instructions, testing_effect_procedure],
+   //timeline_variables: produce_words1_2,
+   //randomize_order: true,
+ };
+
+
+
 
  //test phase instructions presented after study phase is over
 var test_instructions = {
@@ -997,12 +1066,18 @@ var timeline = [];
 timeline.push(instructions);
 //timeline.push(study_procedure_practice);
 timeline.push(practice_test_instructions_pre);
-timeline.push(practice_study_procedure);
+//timeline.push(practice_study_procedure);
 timeline.push(practice_test_instructions);
-timeline.push(practice_test_procedure);
+//timeline.push(practice_test_procedure);
 timeline.push(practice_test_instructions_post);
 
-timeline.push(study_procedure); // this is new
+timeline.push(pure_testing_effect_procedure_block1);
+
+//timeline.push(study_block_instructions);
+//timeline.push(study_procedure); // this is new
+//timeline.push(testing_effect_instructions);
+//imeline.push(testing_effect_procedure);
+
 timeline.push(test_instructions);
 timeline.push(test_phase);
 timeline.push(survey);

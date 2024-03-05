@@ -63,10 +63,13 @@ const result = studywords2.map(({word1, word2})=>{
 console.table(result); //This works!!!
 
 //subsetting the words into 3 arrays for produce words, read words, and new words
-var produce_words = result.slice(0, 20); //produce words             //slice these into 10 blocks of 4 words each for testing effect exp
+var pureproduce_words = result.slice(0, 40);
+var produce_words = result.slice(0, 20); //produce words for mixed condition       
+ 
 //console.table(produce_words);
+var pureread_words = result.slice(0, 40);
+var read_words = result.slice(20, 40); //read words for mixed condition
 
-var read_words = result.slice(20, 40); //read words
 //console.table(read_words);
 
 var new_words = result.slice(40, 80); //new lures for test
@@ -103,6 +106,8 @@ var new_words_test = new_words.map(({word2})=>{ //subsetting new words to be onl
   return doc;
 });
 //console.table(new_words_test);
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 //adding formatting to the produce words at test
 for (var i = 0; i < produce_words_test.length; i++) {
@@ -383,11 +388,42 @@ study_words_pureproduce = JSON.parse(study_words_pureproduce);
 study_words_pureproduce = JSON.stringify(study_words_pureproduce).replace(/read/g, 'produce');
 study_words_pureproduce = JSON.parse(study_words_pureproduce);
 
-for (var i = 0; i < study_words_pureproduce.length; i++) {
-  if (study_words_pureproduce[i].category === "produce") {
-    study_words_pureproduce[i].word2 = study_words_pureproduce[i].word2.replace(/.{3}$/, "_ _ _?");
+var study_words_pureproduce_to_block = JSON.parse(JSON.stringify(study_words_pureproduce));
+var study_words_pureproduce2 = JSON.parse(JSON.stringify(study_words_pureproduce2));
+
+
+
+
+
+
+console.table(study_words_pureproduce_to_block);
+
+//parse words into blocks of 4 here for the pure-produce condition
+var study_block_1pp = study_words_pureproduce_to_block.slice(0, 4); //study block 1 for pure produce condition
+console.table(study_block_1pp);
+var study_block_2pp = study_words_pureproduce_to_block.slice(4, 8); //study block 2
+var study_block_3pp = study_words_pureproduce_to_block.slice(8, 12); //study block 3
+var study_block_4pp = study_words_pureproduce_to_block.slice(12, 16); //study block 4
+var study_block_5pp = study_words_pureproduce_to_block.slice(16, 20); //study block 5
+var study_block_6pp = study_words_pureproduce_to_block.slice(20, 24); //study block 6
+var study_block_7pp = study_words_pureproduce_to_block.slice(24, 28); //study block 7
+var study_block_8pp = study_words_pureproduce_to_block.slice(28, 32); //study block 8
+var study_block_9pp = study_words_pureproduce_to_block.slice(32, 36); //study block 9
+var study_block_10pp = study_words_pureproduce_to_block.slice(36, 40); //study block 10
+
+
+
+for (var i = 0; i < study_words_pureproduce2.length; i++) {
+  if (study_words_pureproduce2[i].category === "produce") {
+    study_words_pureproduce2[i].word2 = study_words_pureproduce2[i].word2.replace(/.{4}$/, "?");
   }
 }
+
+var test_block_1pp = study_words_pureproduce2.slice(0, 4);
+
+console.table(study_block_1pp);
+console.table(test_block_1pp);
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -419,6 +455,11 @@ study_words_pureread = JSON.parse(study_words_pureread);
 // changing the category to be all read (no produce)
 study_words_pureread = JSON.stringify(study_words_pureread).replace(/produce/g, 'read');
 study_words_pureread = JSON.parse(study_words_pureread);
+
+//parse words into blocks of 4 here for the pure-read condition
+
+
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  Randomly Assign one of the three between-subjects conditions: mixed-list, pure-produce, or pure-read  //
@@ -833,7 +874,7 @@ var study_instructions123 = {
 //Putting the study words and study instruction together
  var study_procedure = {
    timeline: [study_instructions123],
-   timeline_variables: stimuli,
+   timeline_variables: study_block_1pp,
    randomize_order: true,
  };
 
@@ -876,7 +917,7 @@ var study_instructions123 = {
 
 var testing_effect_procedure = {
    timeline: [testing_effect_block],
-   timeline_variables: produce_words1_2,
+   timeline_variables: test_block_1pp,
    randomize_order: true,
  };
 

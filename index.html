@@ -388,15 +388,16 @@ study_words_pureproduce = JSON.parse(study_words_pureproduce);
 study_words_pureproduce = JSON.stringify(study_words_pureproduce).replace(/read/g, 'produce');
 study_words_pureproduce = JSON.parse(study_words_pureproduce);
 
-var study_words_pureproduce_to_block = JSON.parse(JSON.stringify(study_words_pureproduce));
-var study_words_pureproduce2 = JSON.parse(JSON.stringify(study_words_pureproduce2));
+var study_words_pureproduce_to_block = study_words_pureproduce;
+//var study_words_pureproduce_to_block = [...study_words_pureproduce];       //this might be needed ? creates a deeper copy of an array
+var study_words_pureproduce2 = JSON.parse(JSON.stringify(study_words_pureproduce)); // this creates a deeper copy so that other variables with the same structure aren't chnaged
 
 
 
 
 
 
-console.table(study_words_pureproduce_to_block);
+//console.table(study_words_pureproduce_to_block);
 
 //parse words into blocks of 4 here for the pure-produce condition
 var study_block_1pp = study_words_pureproduce_to_block.slice(0, 4); //study block 1 for pure produce condition
@@ -420,9 +421,32 @@ for (var i = 0; i < study_words_pureproduce2.length; i++) {
 }
 
 var test_block_1pp = study_words_pureproduce2.slice(0, 4);
+var test_block_2pp = study_words_pureproduce2.slice(4, 8);
+var test_block_3pp = study_words_pureproduce2.slice(8, 12);
+var test_block_4pp = study_words_pureproduce2.slice(12, 16);
+var test_block_5pp = study_words_pureproduce2.slice(16, 20);
+var test_block_6pp = study_words_pureproduce2.slice(20, 24);
+var test_block_7pp = study_words_pureproduce2.slice(24, 28);
+var test_block_8pp = study_words_pureproduce2.slice(28, 32);
+var test_block_9pp = study_words_pureproduce2.slice(32, 36);
+var test_block_10pp = study_words_pureproduce2.slice(36, 40);
+
+test_block_1pp = jsPsych.randomization.repeat(test_block_1pp, 1); //this will shuffle the rows so that it's not in the same order as the study phase
+test_block_2pp = jsPsych.randomization.repeat(test_block_2pp, 1);
+test_block_3pp = jsPsych.randomization.repeat(test_block_3pp, 1);
+test_block_4pp = jsPsych.randomization.repeat(test_block_4pp, 1);
+test_block_5pp = jsPsych.randomization.repeat(test_block_5pp, 1);
+test_block_6pp = jsPsych.randomization.repeat(test_block_6pp, 1);
+test_block_7pp = jsPsych.randomization.repeat(test_block_7pp, 1);
+test_block_8pp = jsPsych.randomization.repeat(test_block_8pp, 1);
+test_block_9pp = jsPsych.randomization.repeat(test_block_9pp, 1);
+test_block_10pp = jsPsych.randomization.repeat(test_block_10pp, 1);
 
 console.table(study_block_1pp);
 console.table(test_block_1pp);
+console.table(study_block_2pp);
+console.table(study_block_10pp);
+console.table(test_block_10pp);
 
 
 

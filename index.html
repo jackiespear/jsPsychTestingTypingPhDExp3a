@@ -150,32 +150,29 @@ var text_read_type = 'old';
 var text_read_category = 'read';
 
 //adding formatting to the produce words
-for (var i = 0; i < produce_words.length; i++) {
+for (var i = 0; i < produce_words.length; i++) { //move this after below after the 2 randomm word pairs have been chosen for testing after the randomization function
   //produce_words[i].word2 = text_produce1 + produce_words[i].word2 + text_produce2;
   produce_words[i].type = text_produce_type;
   produce_words[i].category = text_produce_category;
 };
 //console.table(produce_words);
 
+console.table(read_words);
+
 //adding text to the read words
 for (var i = 0; i < read_words.length; i++) {
-  //read_words[i].word2 = text_read1 + read_words[i].word2 + text_read2;
-  read_words[i].type = text_read_type;
+  //read_words[i].word2 = text_read1 + read_words[i].word2 + text_read2;        /// move this below after the 2 random word pairs are chosen for testing out of the 4 pairs. o
+  read_words[i].type = text_read_type;                                          // the two word paris not selected for testing procedure will be assigned to the 'read' condition 
   read_words[i].category = text_read_category;
 };
-//console.table(read_words);
+console.table(read_words);
 
-//this is new - new to break the study words into blocks of 4 for the testing effect procedure
+//this is new - new to break the study words into blocks of 4 for the testing effect procedure. Mixed-list first 
 var produce_words1 = produce_words.slice(0, 4); //study block 1
 var produce_words2 = produce_words.slice(4, 8); //study block 2
 var produce_words3 = produce_words.slice(8, 12); //study block 3
 var produce_words4 = produce_words.slice(12, 16); //study block 4
 var produce_words5 = produce_words.slice(16, 20); //study block 5
-var produce_words6 = read_words.slice(0, 4);
-var produce_words7 = read_words.slice(4, 8);
-var produce_words8 = read_words.slice(8, 12);
-var produce_words9 = read_words.slice(12, 16);
-var produce_words10 = read_words.slice(16, 20);
 var read_words1 = read_words.slice(0, 4);
 var read_words2 = read_words.slice(4, 8);
 var read_words3 = read_words.slice(8, 12);
@@ -480,6 +477,19 @@ study_words_pureread = JSON.stringify(study_words_pureread).replace(/produce/g, 
 study_words_pureread = JSON.parse(study_words_pureread);
 
 //parse words into blocks of 4 here for the pure-read condition
+var study_block_1pr = study_words_pureread.slice(0, 4); //study block 1 for pure-read condition
+var study_block_2pr = study_words_pureread.slice(4, 8); //study block 2
+var study_block_3pr = study_words_pureread.slice(8, 12); //study block 3
+var study_block_4pr = study_words_pureread.slice(12, 16); //study block 4
+var study_block_5pr = study_words_pureread.slice(16, 20); //study block 5
+var study_block_6pr = study_words_pureread.slice(20, 24); //study block 6
+var study_block_7pr = study_words_pureread.slice(24, 28); //study block 7
+var study_block_8pr = study_words_pureread.slice(28, 32); //study block 8
+var study_block_9pr = study_words_pureread.slice(32, 36); //study block 9
+var study_block_10pr = study_words_pureread.slice(36, 40); //study block 10
+console.table(study_block_10pr);
+
+//no testing blocks needed. for pure read condition s's will study 4 blocks of words at  a time, then go straight to the recognition test phase.
 
 
 

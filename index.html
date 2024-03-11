@@ -156,8 +156,6 @@ var mixed_list_block8 = mixed_words.slice(28, 32);
 var mixed_list_block9 = mixed_words.slice(32, 36);
 var mixed_list_block10 = mixed_words.slice(36, 40);
 
-console.table(mixed_list_block1);
-
 //randomize list of study pairs and choose 2 to be tested for mixed-list condition
 mixed_list_block1 = jsPsych.randomization.repeat(mixed_list_block1, 1); //this will shuffle the rows
 mixed_list_block2 = jsPsych.randomization.repeat(mixed_list_block2, 1); //mixed-list block 1
@@ -169,8 +167,6 @@ mixed_list_block7 = jsPsych.randomization.repeat(mixed_list_block7, 1);
 mixed_list_block8 = jsPsych.randomization.repeat(mixed_list_block8, 1);
 mixed_list_block9 = jsPsych.randomization.repeat(mixed_list_block9, 1);
 mixed_list_block10 = jsPsych.randomization.repeat(mixed_list_block10, 1);
-
-console.table(mixed_list_block1);
 
 var mixed_list_block1_2 = JSON.parse(JSON.stringify(mixed_list_block1));
 var mixed_list_block2_2 = JSON.parse(JSON.stringify(mixed_list_block2));
@@ -255,7 +251,6 @@ for (var i = 0; i < mixed_list_produce_block10.length; i++) {
   mixed_list_produce_block10[i].type = text_produce_type;
   mixed_list_produce_block10[i].category = text_produce_category;
 };
-
 
 
 //concatenate all produce words to save for the mixed-list recongition test phase
@@ -578,7 +573,7 @@ if (condition_assignment == "pureproduce") { //if pure_read is sampled from abov
 
 //console.table(stimuli);
 //console.log(stimuli);
-console.table(stimuli_test);
+//console.table(stimuli_test);
 
 </script>
 
@@ -822,13 +817,74 @@ var typing_feedback = {
   trial_duration:1000,
 };
 
+var study_block1_prac = {
+  timeline: [study_practice],
+  timeline_variables: pracstudy_block1,
+  randomize_order: true,
+};
+
+var study_block2_prac = {
+  timeline: [study_practice],
+  timeline_variables: pracstudy_block2,
+  randomize_order: true,
+};
+
+var study_block3_prac = {
+  timeline: [study_practice],
+  timeline_variables: pracstudy_block3,
+  randomize_order: true,
+};
+
+var study_block4_prac = {
+  timeline: [study_practice],
+  timeline_variables: pracstudy_block4,
+  randomize_order: true,
+};
+
+var test_block1_prac = {
+  timeline: [study_practice],
+  timeline_variables: practest_block1,
+  randomize_order: true,
+};
+
+var test_block2_prac = {
+  timeline: [study_practice],
+  timeline_variables: practest_block2,
+  randomize_order: true,
+};
+
+var test_block3_prac = {
+  timeline: [study_practice],
+  timeline_variables: practest_block3,
+  randomize_order: true,
+};
+
+var test_block4_prac = {
+  timeline: [study_practice],
+  timeline_variables: practest_block4,
+  randomize_order: true,
+};
+
+var prac_studyblock_instructions = {
+  type: "html-keyboard-response",
+  stimulus: study_block_instruction_text,
+  choices: ['j'],
+  data: {"phase": "practice"},
+};
+
+var testingeff_block1_prac = {
+  timeline: [test_block1_prac, typing_feedback],
+  randomize_order: true,
+}
 
 //Putting the study words and study instruction together for the PRACTICE phase
  var practice_study_procedure = {
-   timeline: [study_practice, typing_feedback],
-   randomize_order: true,
-   timeline_variables: pracstudy,
+   timeline: [study_block1_prac, prac_studyblock_instructions, testingeff_block1_prac],
+   //randomize_order: true,
+   //timeline_variables: pracstudy,
  };
+
+
 
  var prac_test_phase = {
 type: 'html-keyboard-response',
@@ -905,26 +961,6 @@ var practice_test_instructions_post = {
 },
 };
 
-
-//New Study Phase
-//create variable to hold study trials
-/*var study_trials = [
-
-  {type: 'survey-html-form',
-  button_label: 'Press enter to continue',
-    preamble: function(){
-        var html = `
-          <p style='font-size: 48px;'>${jsPsych.timelineVariable('word1')} - ${jsPsych.timelineVariable('word2')} </p>
-          `
-        return html;
-    },
-    html:  '<p> <input type="text" onkeydown="return (event.keycode!=13);" id="test-resp-box" name="response" size="10" style=color:white;/></p>', //color being white will not mirror typed word to the screen
-    post_trial_gap: 500, // changing this to 3 seconds so that each trail is equal (e.g. produce vs. read),
-    trial_duration: 3000, //change back to 3000
-    data: {phase:"study", category: jsPsych.timelineVariable("category"), type: jsPsych.timelineVariable("type"), word1: jsPsych.timelineVariable("word1"), word2: jsPsych.timelineVariable("word2")},
-    autofocus: 'test-resp-box',
-},
-] */
 
  //study block instructions
  var study_block_instructions = {
@@ -1095,14 +1131,10 @@ var testing_effect_procedure_block1 = {
    randomize_order: true,
  };
 
-
-
-
 var mixed_testing_effect_procedure_block1 = {
    timeline: [study_block_instructions, study_procedure_block1, testing_effect_instructions, testing_effect_procedure_block1,
    study_block_instructions, study_procedure_block2, testing_effect_instructions, testing_effect_procedure_block2],
  };
-
 
  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                      
@@ -1302,9 +1334,7 @@ var test_phase = {
         {
             type: 'html-keyboard-response',
             stimulus: function(){
-              var html = `
-                <p style='font-size: 48px;'>${jsPsych.timelineVariable('word2')} </p>
-                         `
+              var html = `<p style='font-size: 48px;'>${jsPsych.timelineVariable('word2')}</p>`
               return html;
     },
             choices: ['y', 'n'],
@@ -1467,9 +1497,8 @@ var timeline = [];
 //timeline.push(welcome);
 //timeline.push(enter_full_screen);
 timeline.push(instructions);
-//timeline.push(study_procedure_practice);
 timeline.push(practice_test_instructions_pre);
-//timeline.push(practice_study_procedure);
+timeline.push(practice_study_procedure);
 timeline.push(practice_test_instructions);
 //timeline.push(practice_test_procedure);
 timeline.push(practice_test_instructions_post);
@@ -1494,16 +1523,16 @@ if(condition_assignment == "mixed") {
 timeline.push(test_instructions);
 timeline.push(test_phase);
 timeline.push(survey);
-timeline.push(exit_full_screen);
+//timeline.push(exit_full_screen);
 //timeline.push(debrief);
 
 /*start experiment*/
 jsPsych.init({
     timeline: timeline,
     on_finish: function() {
-     window.location.href = "https://umanitobapsych.sona-systems.com/webstudy_credit.aspx?experiment_id=1303&credit_token=a035fd3a62b541dcae118ab791f90307&survey_code="+SONA_ID; //changed
+     //window.location.href = "https://umanitobapsych.sona-systems.com/webstudy_credit.aspx?experiment_id=1303&credit_token=a035fd3a62b541dcae118ab791f90307&survey_code="+SONA_ID; //changed
       // display data at end:
-      //jsPsych.data.displayData(); //commented out for final version
+      jsPsych.data.displayData(); //commented out for final version
     }
 });
 

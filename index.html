@@ -60,20 +60,16 @@ const result = studywords2.map(({word1, word2})=>{
   return doc;
 }); 
 
-console.table(result); //This works!!!
+//console.table(result); //This works!!!
 
 //subsetting the words into 3 arrays for produce words, read words, and new words
-var pureproduce_words = result.slice(0, 40);
-var produce_words = result.slice(0, 20); //produce words for mixed condition       
+var mixed_words = result.slice(0, 40); //new mixed-list words for the testing effect. produce / read assignment will be random below
+
+var produce_words = result.slice(0, 20); //produce words for mixed condition 
  
-//console.table(produce_words);
-var pureread_words = result.slice(0, 40);
 var read_words = result.slice(20, 40); //read words for mixed condition
 
-//console.table(read_words);
-
 var new_words = result.slice(40, 80); //new lures for test
-//console.table(new_words);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 //creating text variables to concatenate onto each word for the test phase
@@ -123,11 +119,10 @@ for (var i = 0; i < read_words_test.length; i++) {
   read_words_test[i].type = text_test_read_type;
   read_words_test[i].category = text_test_read_category;
 };
-//console.table(read_words_test);
 
 //adding formatting to the new words at test
 for (var i = 0; i < new_words_test.length; i++) {
-  new_words_test[i].word2 = text_test_all + new_words_test[i].word2 + text_test_all2;
+  //new_words_test[i].word2 = text_test_all + new_words_test[i].word2 + text_test_all2;
   new_words_test[i].type = text_test_new_type;
   new_words_test[i].category = text_test_new_category;
 };
@@ -135,8 +130,8 @@ for (var i = 0; i < new_words_test.length; i++) {
 var study_words_pureproduce = produce_words.concat(read_words);
 var study_words_pureread = produce_words.concat(read_words);
 
-//make the list of test words to present during the test phase
-var test_words_mixed = produce_words_test.concat(read_words_test, new_words_test);
+//make the list of test words to present during the test phase                                  **** this is now being defined below as produce/read is random
+//var test_words_mixed = produce_words_test.concat(read_words_test, new_words_test);
 //console.table(test_words_mixed);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 //creating text variables to concatenate onto each word for the study phase
@@ -149,6 +144,9 @@ var text_read2 = '</span></p>';
 var text_read_type = 'old';
 var text_read_category = 'read';
 
+//// commenting out for now                                  *****************************
+/*
+
 //adding formatting to the produce words
 for (var i = 0; i < produce_words.length; i++) { //move this after below after the 2 randomm word pairs have been chosen for testing after the randomization function
   //produce_words[i].word2 = text_produce1 + produce_words[i].word2 + text_produce2;
@@ -156,8 +154,7 @@ for (var i = 0; i < produce_words.length; i++) { //move this after below after t
   produce_words[i].category = text_produce_category;
 };
 //console.table(produce_words);
-
-console.table(read_words);
+//console.table(read_words);
 
 //adding text to the read words
 for (var i = 0; i < read_words.length; i++) {
@@ -167,150 +164,224 @@ for (var i = 0; i < read_words.length; i++) {
 };
 console.table(read_words);
 
-//this is new - new to break the study words into blocks of 4 for the testing effect procedure. Mixed-list first 
-var produce_words1 = produce_words.slice(0, 4); //study block 1
-var produce_words2 = produce_words.slice(4, 8); //study block 2
-var produce_words3 = produce_words.slice(8, 12); //study block 3
-var produce_words4 = produce_words.slice(12, 16); //study block 4
-var produce_words5 = produce_words.slice(16, 20); //study block 5
-var read_words1 = read_words.slice(0, 4);
-var read_words2 = read_words.slice(4, 8);
-var read_words3 = read_words.slice(8, 12);
-var read_words4 = read_words.slice(12, 16);
-var read_words5 = read_words.slice(16, 20);
-console.table(read_words1);
+*/                                                             //**********************
 
-console.table(produce_words1)
-console.table(produce_words2)
-console.table(produce_words10)
-//console.table(produce_words3)
-//console.table(produce_words4)
-//console.table(produce_words5)
+
+
+
+//this is new - new to break the study words into blocks of 4 for the testing effect procedure. Mixed-list first 
+var mixed_list_block1 = mixed_words.slice(0, 4);
+var mixed_list_block2 = mixed_words.slice(4, 8);
+var mixed_list_block3 = mixed_words.slice(8, 12);
+var mixed_list_block4 = mixed_words.slice(12, 16);
+var mixed_list_block5 = mixed_words.slice(16, 20);
+var mixed_list_block6 = mixed_words.slice(20, 24);
+var mixed_list_block7 = mixed_words.slice(24, 28);
+var mixed_list_block8 = mixed_words.slice(28, 32);
+var mixed_list_block9 = mixed_words.slice(32, 36);
+var mixed_list_block10 = mixed_words.slice(36, 40);
+
+//console.table(mixed_list_block1);
 
 //randomize list of study pairs and choose 2 to be tested for mixed-list condition
-produce_words1_2 = jsPsych.randomization.repeat(produce_words1, 1); //this will shuffle the rows
-produce_words2_2 = jsPsych.randomization.repeat(produce_words2, 1); //pure test block 2
-produce_words3_2 = jsPsych.randomization.repeat(produce_words3, 1); //pure test block 3
-produce_words4_2 = jsPsych.randomization.repeat(produce_words4, 1); //pure test block 4
-produce_words5_2 = jsPsych.randomization.repeat(produce_words5, 1); //pure test block 5
-produce_words6_2 = jsPsych.randomization.repeat(read_words1, 1);
-produce_words7_2 = jsPsych.randomization.repeat(read_words2, 1);
-produce_words8_2 = jsPsych.randomization.repeat(read_words3, 1);
-produce_words9_2 = jsPsych.randomization.repeat(read_words4, 1);
-produce_words10_2 = jsPsych.randomization.repeat(read_words5, 1);
+mixed_list_block1 = jsPsych.randomization.repeat(mixed_list_block1, 1); //this will shuffle the rows
+mixed_list_block2 = jsPsych.randomization.repeat(mixed_list_block2, 1); //mixed-list block 1
+mixed_list_block3 = jsPsych.randomization.repeat(mixed_list_block3, 1); //mixed-list block 2
+mixed_list_block4 = jsPsych.randomization.repeat(mixed_list_block4, 1); //mixed-list block 3
+mixed_list_block5 = jsPsych.randomization.repeat(mixed_list_block5, 1); //mixed-list block 4....
+mixed_list_block6 = jsPsych.randomization.repeat(mixed_list_block6, 1);
+mixed_list_block7 = jsPsych.randomization.repeat(mixed_list_block7, 1);
+mixed_list_block8 = jsPsych.randomization.repeat(mixed_list_block8, 1);
+mixed_list_block9 = jsPsych.randomization.repeat(mixed_list_block9, 1);
+mixed_list_block10 = jsPsych.randomization.repeat(mixed_list_block10, 1);
+
+console.table(mixed_list_block1);
+
+var mixed_list_block1_2 = JSON.parse(JSON.stringify(mixed_list_block1));
+var mixed_list_block2_2 = JSON.parse(JSON.stringify(mixed_list_block2));
+var mixed_list_block3_2 = JSON.parse(JSON.stringify(mixed_list_block3));
+var mixed_list_block4_2 = JSON.parse(JSON.stringify(mixed_list_block4));
+var mixed_list_block5_2 = JSON.parse(JSON.stringify(mixed_list_block5));
+var mixed_list_block6_2 = JSON.parse(JSON.stringify(mixed_list_block6));
+var mixed_list_block7_2 = JSON.parse(JSON.stringify(mixed_list_block7));
+var mixed_list_block8_2 = JSON.parse(JSON.stringify(mixed_list_block8));
+var mixed_list_block9_2 = JSON.parse(JSON.stringify(mixed_list_block9));
+var mixed_list_block10_2 = JSON.parse(JSON.stringify(mixed_list_block10));
+
+mixed_list_produce_block1 = mixed_list_block1_2.slice(0, 2); //now selecting top 2 (only half of the words are being tested in the mixed-list condition)
+mixed_list_produce_block2 = mixed_list_block2_2.slice(0, 2); 
+mixed_list_produce_block3 = mixed_list_block3_2.slice(0, 2);  
+mixed_list_produce_block4 = mixed_list_block4_2.slice(0, 2);  
+mixed_list_produce_block5 = mixed_list_block5_2.slice(0, 2);  
+mixed_list_produce_block6 = mixed_list_block6_2.slice(0, 2);
+mixed_list_produce_block7 = mixed_list_block7_2.slice(0, 2);
+mixed_list_produce_block8 = mixed_list_block8_2.slice(0, 2);
+mixed_list_produce_block9 = mixed_list_block9_2.slice(0, 2);
+mixed_list_produce_block10 = mixed_list_block10_2.slice(0, 2);
+
+mixed_list_read_block1 = mixed_list_block1_2.slice(2, 4); //selecting the last 2 pairs to tag with 'read' data tag so we know this information for the recognition test phase 
+mixed_list_read_block2 = mixed_list_block2_2.slice(2, 4); 
+mixed_list_read_block3 = mixed_list_block3_2.slice(2, 4);  
+mixed_list_read_block4 = mixed_list_block4_2.slice(2, 4);  
+mixed_list_read_block5 = mixed_list_block5_2.slice(2, 4);  
+mixed_list_read_block6 = mixed_list_block6_2.slice(2, 4);
+mixed_list_read_block7 = mixed_list_block7_2.slice(2, 4);
+mixed_list_read_block8 = mixed_list_block8_2.slice(2, 4);
+mixed_list_read_block9 = mixed_list_block9_2.slice(2, 4);
+mixed_list_read_block10 = mixed_list_block10_2.slice(2, 4);
+
+//*****************
 
 
-read_words1_2 = jsPsych.randomization.repeat(read_words1, 1); //pure test block 6
-read_words2_2 = jsPsych.randomization.repeat(read_words2, 1); //pure test block 7
-read_words3_2 = jsPsych.randomization.repeat(read_words3, 1); //pure test block 8
-read_words4_2 = jsPsych.randomization.repeat(read_words4, 1); //pure test block 9
-read_words5_2 = jsPsych.randomization.repeat(read_words5, 1); //pure test block 10
-
-produce_words1_mixed = produce_words1_2.slice(0, 2); //now selecting top 2 (only half of the words are being tested in the mixed-list condition)
-produce_words2_mixed = produce_words2_2.slice(0, 2); //mixed test block 2
-produce_words3_mixed = produce_words3_2.slice(0, 2); //mixed test block 3
-produce_words4_mixed = produce_words4_2.slice(0, 2); //mixed test block 4
-produce_words5_mixed = produce_words5_2.slice(0, 2); //mixed test block 5
 
 
+//now add produce and old data tags to words 
+for (var i = 0; i < mixed_list_produce_block1.length; i++) { 
+  mixed_list_produce_block1[i].type = text_produce_type;
+  mixed_list_produce_block1[i].category = text_produce_category;
+};
+
+for (var i = 0; i < mixed_list_produce_block2.length; i++) { 
+  mixed_list_produce_block2[i].type = text_produce_type;
+  mixed_list_produce_block2[i].category = text_produce_category;
+};
+
+for (var i = 0; i < mixed_list_produce_block3.length; i++) { 
+  mixed_list_produce_block3[i].type = text_produce_type;
+  mixed_list_produce_block3[i].category = text_produce_category;
+};
+
+for (var i = 0; i < mixed_list_produce_block4.length; i++) { 
+  mixed_list_produce_block4[i].type = text_produce_type;
+  mixed_list_produce_block4[i].category = text_produce_category;
+};
+
+for (var i = 0; i < mixed_list_produce_block5.length; i++) { 
+  mixed_list_produce_block5[i].type = text_produce_type;
+  mixed_list_produce_block5[i].category = text_produce_category;
+};
+
+for (var i = 0; i < mixed_list_produce_block6.length; i++) { 
+  mixed_list_produce_block6[i].type = text_produce_type;
+  mixed_list_produce_block6[i].category = text_produce_category;
+};
+
+for (var i = 0; i < mixed_list_produce_block7.length; i++) { 
+  mixed_list_produce_block7[i].type = text_produce_type;
+  mixed_list_produce_block7[i].category = text_produce_category;
+};
+
+for (var i = 0; i < mixed_list_produce_block8.length; i++) { 
+  mixed_list_produce_block8[i].type = text_produce_type;
+  mixed_list_produce_block8[i].category = text_produce_category;
+};
+
+for (var i = 0; i < mixed_list_produce_block9.length; i++) { 
+  mixed_list_produce_block9[i].type = text_produce_type;
+  mixed_list_produce_block9[i].category = text_produce_category;
+};
+
+for (var i = 0; i < mixed_list_produce_block10.length; i++) { 
+  mixed_list_produce_block10[i].type = text_produce_type;
+  mixed_list_produce_block10[i].category = text_produce_category;
+};
 
 
+
+//concatenate all produce words to save for the mixed-list recongition test phase
+var produce_words_mixed = mixed_list_produce_block1.concat(mixed_list_produce_block2, mixed_list_produce_block3, mixed_list_produce_block4, mixed_list_produce_block5,
+mixed_list_produce_block6, mixed_list_produce_block7, mixed_list_produce_block8, mixed_list_produce_block9, mixed_list_produce_block10);
+
+//now add data tags to read words. 
+//can concatenate these first as they won't be presented during the testing effect phase
+var read_words_mixed = mixed_list_read_block1.concat(mixed_list_read_block2, mixed_list_read_block3, mixed_list_read_block4, mixed_list_read_block5, 
+mixed_list_read_block6, mixed_list_read_block7, mixed_list_read_block8, mixed_list_read_block9, mixed_list_read_block10);
+
+console.table(mixed_list_block1);
+console.table(produce_words_mixed);
+
+
+for (var i = 0; i < read_words_mixed.length; i++) {       //save these to the mixed-list recognition test phase
+  read_words_mixed[i].type = text_read_type;                                          
+  read_words_mixed[i].category = text_read_category;
+};
+
+
+//now save all of the produced/read words, along with the 'new' words, together for the recognition test phase
+var test_words_mixed = read_words_mixed.concat(produce_words_mixed, new_words_test);
+console.table(test_words_mixed);
+console.table(mixed_list_produce_block1);
+
+var test_words_mixed_final = JSON.parse(JSON.stringify(test_words_mixed));
+
+for (var i = 0; i < test_words_mixed_final.length; i++) {
+  test_words_mixed_final[i].word2 = text_test_all + test_words_mixed_final[i].word2 + text_test_all2;
+};
+
+console.table(test_words_mixed_final);
 
 //mixed-list reformatting of word-pairs
-for (var i = 0; i < produce_words1_mixed.length; i++) {
-  if (produce_words1_mixed[i].category === "produce") {
-    produce_words1_mixed[i].word2 = produce_words1_mixed[i].word2.replace(/.{4}$/, "?");
+for (var i = 0; i < mixed_list_produce_block1.length; i++) {
+  if (mixed_list_produce_block1[i].category === "produce") {
+    mixed_list_produce_block1[i].word2 = mixed_list_produce_block1[i].word2.replace(/.{4}$/, "?");
   }
 }
-console.table(produce_words1_mixed)
+console.table(mixed_list_produce_block1);
 
-for (var i = 0; i < produce_words2_mixed.length; i++) {
-  if (produce_words2_mixed[i].category === "produce") {
-    produce_words2_mixed[i].word2 = produce_words2_mixed[i].word2.replace(/.{4}$/, "?");
-  }
-}
-console.table(produce_words2_mixed)
 
-for (var i = 0; i < produce_words3_mixed.length; i++) {
-  if (produce_words3_mixed[i].category === "produce") {
-    produce_words3_mixed[i].word2 = produce_words3_mixed[i].word2.replace(/.{4}$/, "?");
+for (var i = 0; i < mixed_list_produce_block2.length; i++) {
+  if (mixed_list_produce_block2[i].category === "produce") {
+    mixed_list_produce_block2[i].word2 = mixed_list_produce_block2[i].word2.replace(/.{4}$/, "?");
   }
 }
 
-for (var i = 0; i < produce_words4_mixed.length; i++) {
-  if (produce_words4_mixed[i].category === "produce") {
-    produce_words4_mixed[i].word2 = produce_words4_mixed[i].word2.replace(/.{4}$/, "?");
+for (var i = 0; i < mixed_list_produce_block3.length; i++) {
+  if (mixed_list_produce_block3[i].category === "produce") {
+    mixed_list_produce_block3[i].word2 = mixed_list_produce_block3[i].word2.replace(/.{4}$/, "?");
   }
 }
 
-for (var i = 0; i < produce_words5_mixed.length; i++) {
-  if (produce_words5_mixed[i].category === "produce") {
-    produce_words5_mixed[i].word2 = produce_words5_mixed[i].word2.replace(/.{4}$/, "?");
+for (var i = 0; i < mixed_list_produce_block4.length; i++) {
+  if (mixed_list_produce_block4[i].category === "produce") {
+    mixed_list_produce_block4[i].word2 = mixed_list_produce_block4[i].word2.replace(/.{4}$/, "?");
   }
 }
 
-//pure-test reformatting of word pairs
-for (var i = 0; i < produce_words1_2.length; i++) {
-  if (produce_words1_2[i].category === "produce") {
-    produce_words1_2[i].word2 = produce_words1_2[i].word2.replace(/.{4}$/, "?");
-  }
-}
-console.table(produce_words1_2);
-
-for (var i = 0; i < produce_words2_2.length; i++) {
-  if (produce_words2_2[i].category === "produce") {
-    produce_words2_2[i].word2 = produce_words2_2[i].word2.replace(/.{4}$/, "?");
+for (var i = 0; i < mixed_list_produce_block5.length; i++) {
+  if (mixed_list_produce_block5[i].category === "produce") {
+    mixed_list_produce_block5[i].word2 = mixed_list_produce_block5[i].word2.replace(/.{4}$/, "?");
   }
 }
 
-for (var i = 0; i < produce_words3_2.length; i++) {
-  if (produce_words3_2[i].category === "produce") {
-    produce_words3_2[i].word2 = produce_words3_2[i].word2.replace(/.{4}$/, "?");
+for (var i = 0; i < mixed_list_produce_block6.length; i++) {
+  if (mixed_list_produce_block6[i].category === "produce") {
+    mixed_list_produce_block6[i].word2 = mixed_list_produce_block6[i].word2.replace(/.{4}$/, "?");
+  }
+}
+for (var i = 0; i < mixed_list_produce_block7.length; i++) {
+  if (mixed_list_produce_block7[i].category === "produce") {
+    mixed_list_produce_block7[i].word2 = mixed_list_produce_block7[i].word2.replace(/.{4}$/, "?");
+  }
+}
+for (var i = 0; i < mixed_list_produce_block8.length; i++) {
+  if (mixed_list_produce_block8[i].category === "produce") {
+    mixed_list_produce_block8[i].word2 = mixed_list_produce_block8[i].word2.replace(/.{4}$/, "?");
+  }
+}
+for (var i = 0; i < mixed_list_produce_block9.length; i++) {
+  if (mixed_list_produce_block9[i].category === "produce") {
+    mixed_list_produce_block9[i].word2 = mixed_list_produce_block9[i].word2.replace(/.{4}$/, "?");
+  }
+}
+for (var i = 0; i < mixed_list_produce_block10.length; i++) {
+  if (mixed_list_produce_block10[i].category === "produce") {
+    mixed_list_produce_block10[i].word2 = mixed_list_produce_block10[i].word2.replace(/.{4}$/, "?");
   }
 }
 
-for (var i = 0; i < produce_words4_2.length; i++) {
-  if (produce_words4_2[i].category === "produce") {
-    produce_words4_2[i].word2 = produce_words4_2[i].word2.replace(/.{4}$/, "?");
-  }
-}
+//console.table(mixed_list_produce_block10);
 
-for (var i = 0; i < produce_words5_2.length; i++) {
-  if (produce_words5_2[i].category === "produce") {
-    produce_words5_2[i].word2 = produce_words5_2[i].word2.replace(/.{4}$/, "?");
-  }
-}
 
-for (var i = 0; i < read_words1_2.length; i++) {
-  if (read_words1_2[i].category === "read") {
-    read_words1_2[i].word2 = read_words1_2[i].word2.replace(/.{4}$/, "?");
-  }
-}
-console.table(read_words1_2);
-
-for (var i = 0; i < read_words2_2.length; i++) {
-  if (read_words2_2[i].category === "read") {
-    read_words2_2[i].word2 = read_words2_2[i].word2.replace(/.{4}$/, "?");
-  }
-}
-
-for (var i = 0; i < read_words3_2.length; i++) {
-  if (read_words3_2[i].category === "read") {
-    read_words3_2[i].word2 = read_words3_2[i].word2.replace(/.{4}$/, "?");
-  }
-}
-
-for (var i = 0; i < read_words4_2.length; i++) {
-  if (read_words4_2[i].category === "read") {
-    read_words4_2[i].word2 = read_words4_2[i].word2.replace(/.{4}$/, "?");
-  }
-}
-
-for (var i = 0; i < read_words5_2.length; i++) {
-  if (read_words5_2[i].category === "read") {
-    read_words5_2[i].word2 = read_words5_2[i].word2.replace(/.{4}$/, "?");
-  }
-}
 
 
 
@@ -318,6 +389,7 @@ for (var i = 0; i < read_words5_2.length; i++) {
 //Make the list or study words to present during the study phase
 //var study_words_mixed = produce_words.concat(read_words);
 
+/*
 for (let i = 0; i < produce_words1.length; i++) {
   const { word1, word2, ...rest } = produce_words1[i];
   const newObject = Object.assign({ word1, word_2: word2, ...rest }); //renaming word2 to word_2
@@ -330,7 +402,7 @@ for (let i = 0; i < produce_words1.length; i++) {
   produce_words1[i] = newObject;
 }
 
-
+*/
 
 /* for (var i = 0; i < study_words_mixed.length; i++) {
   if (study_words_mixed[i].category === "produce") {
@@ -356,7 +428,9 @@ for (let i = 0; i < produce_words1.length; i++) {
 study_words_pureproduce = JSON.stringify(study_words_pureproduce).replace(/red/g, 'green');
 study_words_pureproduce = JSON.parse(study_words_pureproduce);
 
-var test_words_pureproduce = test_words_mixed;
+///              ********
+
+var test_words_pureproduce = JSON.parse(JSON.stringify(test_words_mixed_final));
 
 // changing the condition in the test words to be pureproduce 
 test_words_pureproduce = JSON.stringify(test_words_pureproduce).replace(/mixed/g, 'pureproduce');
@@ -389,7 +463,15 @@ var study_words_pureproduce_to_block = JSON.parse(JSON.stringify(study_words_pur
 var study_words_pureproduce2 = JSON.parse(JSON.stringify(study_words_pureproduce));
 
 
+for (var i = 0; i < study_words_pureproduce_to_block.length; i++) { 
+  study_words_pureproduce_to_block[i].type = text_produce_type;
+  study_words_pureproduce_to_block[i].category = text_produce_category;
+};
 
+for (var i = 0; i < study_words_pureproduce2.length; i++) { 
+  study_words_pureproduce2[i].type = text_produce_type;
+  study_words_pureproduce2[i].category = text_produce_category;
+};
 
 
 
@@ -397,7 +479,6 @@ var study_words_pureproduce2 = JSON.parse(JSON.stringify(study_words_pureproduce
 
 //parse words into blocks of 4 here for the pure-produce condition
 var study_block_1pp = study_words_pureproduce_to_block.slice(0, 4); //study block 1 for pure produce condition
-console.table(study_block_1pp);
 var study_block_2pp = study_words_pureproduce_to_block.slice(4, 8); //study block 2
 var study_block_3pp = study_words_pureproduce_to_block.slice(8, 12); //study block 3
 var study_block_4pp = study_words_pureproduce_to_block.slice(12, 16); //study block 4
@@ -408,13 +489,7 @@ var study_block_8pp = study_words_pureproduce_to_block.slice(28, 32); //study bl
 var study_block_9pp = study_words_pureproduce_to_block.slice(32, 36); //study block 9
 var study_block_10pp = study_words_pureproduce_to_block.slice(36, 40); //study block 10
 
-
-
-for (var i = 0; i < study_words_pureproduce2.length; i++) {
-  if (study_words_pureproduce2[i].category === "produce") {
-    study_words_pureproduce2[i].word2 = study_words_pureproduce2[i].word2.replace(/.{4}$/, "?");
-  }
-}
+console.table(study_block_1pp);
 
 var test_block_1pp = study_words_pureproduce2.slice(0, 4);
 var test_block_2pp = study_words_pureproduce2.slice(4, 8);
@@ -438,11 +513,73 @@ test_block_8pp = jsPsych.randomization.repeat(test_block_8pp, 1);
 test_block_9pp = jsPsych.randomization.repeat(test_block_9pp, 1);
 test_block_10pp = jsPsych.randomization.repeat(test_block_10pp, 1);
 
-console.table(study_block_1pp);
+for (var i = 0; i < test_block_1pp.length; i++) {
+  if (test_block_1pp[i].category === "produce") {
+    test_block_1pp[i].word2 = test_block_1pp[i].word2.replace(/.{4}$/, "?");
+  }
+};
+
 console.table(test_block_1pp);
-console.table(study_block_2pp);
-console.table(study_block_10pp);
-console.table(test_block_10pp);
+
+for (var i = 0; i < test_block_2pp.length; i++) {
+  if (test_block_2pp[i].category === "produce") {
+    test_block_2pp[i].word2 = test_block_2pp[i].word2.replace(/.{4}$/, "?");
+  }
+};
+
+for (var i = 0; i < test_block_3pp.length; i++) {
+  if (test_block_3pp[i].category === "produce") {
+    test_block_3pp[i].word2 = test_block_3pp[i].word2.replace(/.{4}$/, "?");
+  }
+};
+
+for (var i = 0; i < test_block_4pp.length; i++) {
+  if (test_block_4pp[i].category === "produce") {
+    test_block_4pp[i].word2 = test_block_4pp[i].word2.replace(/.{4}$/, "?");
+  }
+};
+
+for (var i = 0; i < test_block_5pp.length; i++) {
+  if (test_block_5pp[i].category === "produce") {
+    test_block_5pp[i].word2 = test_block_5pp[i].word2.replace(/.{4}$/, "?");
+  }
+};
+
+for (var i = 0; i < test_block_6pp.length; i++) {
+  if (test_block_6pp[i].category === "produce") {
+    test_block_6pp[i].word2 = test_block_6pp[i].word2.replace(/.{4}$/, "?");
+  }
+};
+
+for (var i = 0; i < test_block_7pp.length; i++) {
+  if (test_block_7pp[i].category === "produce") {
+    test_block_7pp[i].word2 = test_block_7pp[i].word2.replace(/.{4}$/, "?");
+  }
+};
+
+for (var i = 0; i < test_block_8pp.length; i++) {
+  if (test_block_8pp[i].category === "produce") {
+    test_block_8pp[i].word2 = test_block_8pp[i].word2.replace(/.{4}$/, "?");
+  }
+};
+
+for (var i = 0; i < test_block_9pp.length; i++) {
+  if (test_block_9pp[i].category === "produce") {
+    test_block_9pp[i].word2 = test_block_9pp[i].word2.replace(/.{4}$/, "?");
+  }
+};
+
+for (var i = 0; i < test_block_10pp.length; i++) {
+  if (test_block_10pp[i].category === "produce") {
+    test_block_10pp[i].word2 = test_block_1pp[i].word2.replace(/.{4}$/, "?");
+  }
+};
+
+//console.table(study_block_1pp);
+//console.table(test_block_1pp);
+//console.table(study_block_2pp);
+//console.table(study_block_10pp);
+//console.table(test_block_10pp);
 
 
 
@@ -450,7 +587,7 @@ console.table(test_block_10pp);
 //////////////////////        Make study/test lists for the pure read list            ////////////////////// 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //formatting the test words for the pure read condition. all is the same execept for condition and no produce words
-var test_words_pureread = test_words_mixed;
+var test_words_pureread = JSON.parse(JSON.stringify(test_words_mixed_final));
 // changing the condition in the test words to be pureread 
 test_words_pureread = JSON.stringify(test_words_pureread).replace(/mixed/g, 'pureread');
 test_words_pureread = JSON.parse(test_words_pureread);
@@ -487,7 +624,7 @@ var study_block_7pr = study_words_pureread.slice(24, 28); //study block 7
 var study_block_8pr = study_words_pureread.slice(28, 32); //study block 8
 var study_block_9pr = study_words_pureread.slice(32, 36); //study block 9
 var study_block_10pr = study_words_pureread.slice(36, 40); //study block 10
-console.table(study_block_10pr);
+//console.table(study_block_10pr);
 
 //no testing blocks needed. for pure read condition s's will study 4 blocks of words at  a time, then go straight to the recognition test phase.
 
@@ -498,7 +635,7 @@ console.table(study_block_10pr);
 //  Randomly Assign one of the three between-subjects conditions: mixed-list, pure-produce, or pure-read  //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-var condition_assignment = jsPsych.randomization.sampleWithoutReplacement(['pureproduce', 'pureproduce', 'pureproduce'], 1)[0];
+var condition_assignment = jsPsych.randomization.sampleWithoutReplacement(['mixed', 'mixed', 'mixed'], 1)[0];
 jsPsych.data.addProperties({
   condition: condition_assignment
 });
@@ -506,16 +643,18 @@ jsPsych.data.addProperties({
 console.log(condition_assignment);
 
 //trial information for each condition -  will call a different list depending on condition
-var list_1 = produce_words1; //changed this march 4, 2024
-var list_2 = study_words_pureread;
-var list_3 = produce_words1;
+var list_1 = mixed_list_block1; //changed this march 4, 2024
+var list_2 = mixed_list_block1;
+var list_3 = mixed_list_block1;
 
 //add temp variables here for each intermediate 'testing effect' phase
 
 
 var list_1T = test_words_pureproduce;
 var list_2T = test_words_pureread;
-var list_3T = test_words_mixed;
+var list_3T = test_words_mixed_final;
+
+//console.table(list_2T);
 
 // create a variable to hold the trial information, which changes based on condition
 //original randomization procedure for all 3 conditions
@@ -532,9 +671,9 @@ if (condition_assignment == "pureproduce") { //if pure_read is sampled from abov
   stimuli_test = list_3T;
 };  
 
-console.table(stimuli);
+//console.table(stimuli);
 //console.log(stimuli);
-//console.table(stimuli_test);
+console.table(stimuli_test);
 
 </script>
 
@@ -864,7 +1003,7 @@ var practice_test_instructions_post = {
 
 //New Study Phase
 //create variable to hold study trials
-var study_trials = [
+/*var study_trials = [
 
   {type: 'survey-html-form',
   button_label: 'Press enter to continue',
@@ -880,10 +1019,16 @@ var study_trials = [
     data: {phase:"study", category: jsPsych.timelineVariable("category"), type: jsPsych.timelineVariable("type"), word1: jsPsych.timelineVariable("word1"), word2: jsPsych.timelineVariable("word2")},
     autofocus: 'test-resp-box',
 },
+] */
 
-
-]
-
+ //study block instructions
+ var study_block_instructions = {
+  type: "html-keyboard-response",
+  stimulus: study_block_instruction_text,
+  choices: ['j'],
+  data: {"phase": "Study_Block_Instructions",
+  },
+};
 
 //Study Phase
 var study_instructions123 = {
@@ -905,9 +1050,63 @@ var study_instructions123 = {
 };
 
 //Putting the study words and study instruction together
- var study_procedure = {
+ var study_procedure_block1 = {
    timeline: [study_instructions123],
-   timeline_variables: study_block_1pp,
+   timeline_variables: mixed_list_block1,
+   randomize_order: true,
+ };
+
+ var study_procedure_block2 = {
+   timeline: [study_instructions123],
+   timeline_variables: mixed_list_block2,
+   randomize_order: true,
+ };
+
+ var study_procedure_block3 = {
+   timeline: [study_instructions123],
+   timeline_variables: mixed_list_block3,
+   randomize_order: true,
+ };
+
+ var study_procedure_block4 = {
+   timeline: [study_instructions123],
+   timeline_variables: mixed_list_block4,
+   randomize_order: true,
+ };
+
+ var study_procedure_block5 = {
+   timeline: [study_instructions123],
+   timeline_variables: mixed_list_block5,
+   randomize_order: true,
+ };
+
+ var study_procedure_block6 = {
+   timeline: [study_instructions123],
+   timeline_variables: mixed_list_block6,
+   randomize_order: true,
+ };
+
+ var study_procedure_block7 = {
+   timeline: [study_instructions123],
+   timeline_variables: mixed_list_block7,
+   randomize_order: true,
+ };
+
+ var study_procedure_block8 = {
+   timeline: [study_instructions123],
+   timeline_variables: mixed_list_block8,
+   randomize_order: true,
+ };
+
+ var study_procedure_block9 = {
+   timeline: [study_instructions123],
+   timeline_variables: mixed_list_block9,
+   randomize_order: true,
+ };
+
+ var study_procedure_block10 = {
+   timeline: [study_instructions123],
+   timeline_variables: mixed_list_block10,
    randomize_order: true,
  };
 
@@ -939,29 +1138,267 @@ var study_instructions123 = {
     //randomize_order:true,
 };
 
- //study block instructions
- var study_block_instructions = {
-  type: "html-keyboard-response",
-  stimulus: study_block_instruction_text,
-  choices: ['j'],
-  data: {"phase": "Study_Block_Instructions",
-  },
-};
 
-var testing_effect_procedure = {
+var testing_effect_procedure_block1 = {
+   timeline: [testing_effect_block],
+   timeline_variables: mixed_list_produce_block1,
+   randomize_order: true,
+ };
+
+ var testing_effect_procedure_block2 = {
+   timeline: [testing_effect_block],
+   timeline_variables: mixed_list_produce_block2,
+   randomize_order: true,
+ };
+ var testing_effect_procedure_block3 = {
+   timeline: [testing_effect_block],
+   timeline_variables: mixed_list_produce_block3,
+   randomize_order: true,
+ };
+ var testing_effect_procedure_block4 = {
+   timeline: [testing_effect_block],
+   timeline_variables: mixed_list_produce_block4,
+   randomize_order: true,
+ };
+ var testing_effect_procedure_block5 = {
+   timeline: [testing_effect_block],
+   timeline_variables: mixed_list_produce_block5,
+   randomize_order: true,
+ };
+ var testing_effect_procedure_block6 = {
+   timeline: [testing_effect_block],
+   timeline_variables: mixed_list_produce_block6,
+   randomize_order: true,
+ };
+ var testing_effect_procedure_block7 = {
+   timeline: [testing_effect_block],
+   timeline_variables: mixed_list_produce_block7,
+   randomize_order: true,
+ };
+ var testing_effect_procedure_block8 = {
+   timeline: [testing_effect_block],
+   timeline_variables: mixed_list_produce_block8,
+   randomize_order: true,
+ };
+ var testing_effect_procedure_block9 = {
+   timeline: [testing_effect_block],
+   timeline_variables: mixed_list_produce_block9,
+   randomize_order: true,
+ };
+ var testing_effect_procedure_block10 = {
+   timeline: [testing_effect_block],
+   timeline_variables: mixed_list_produce_block10,
+   randomize_order: true,
+ };
+
+
+
+
+var mixed_testing_effect_procedure_block1 = {
+   timeline: [study_block_instructions, study_procedure_block1, testing_effect_instructions, testing_effect_procedure_block1,
+   study_block_instructions, study_procedure_block2, testing_effect_instructions, testing_effect_procedure_block2],
+ };
+
+
+ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                                                     
+                                                                     //***  Pure-produce procedure **//
+                                                                    
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//Study Blocks
+var study_procedure_block1_pp = {
+   timeline: [study_instructions123],
+   timeline_variables: study_block_1pp,
+   randomize_order: true,
+ };
+
+ var study_procedure_block2_pp = {
+   timeline: [study_instructions123],
+   timeline_variables: study_block_2pp,
+   randomize_order: true,
+ };
+
+ var study_procedure_block3_pp = {
+   timeline: [study_instructions123],
+   timeline_variables: study_block_3pp,
+   randomize_order: true,
+ };
+
+ var study_procedure_block4_pp = {
+   timeline: [study_instructions123],
+   timeline_variables: study_block_4pp,
+   randomize_order: true,
+ };
+
+ var study_procedure_block5_pp = {
+   timeline: [study_instructions123],
+   timeline_variables: study_block_5pp,
+   randomize_order: true,
+ };
+
+ var study_procedure_block6_pp = {
+   timeline: [study_instructions123],
+   timeline_variables: study_block_6pp,
+   randomize_order: true,
+ };
+
+ var study_procedure_block7_pp = {
+   timeline: [study_instructions123],
+   timeline_variables: study_block_7pp,
+   randomize_order: true,
+ };
+
+ var study_procedure_block8_pp = {
+   timeline: [study_instructions123],
+   timeline_variables: study_block_8pp,
+   randomize_order: true,
+ };
+
+ var study_procedure_block9_pp = {
+   timeline: [study_instructions123],
+   timeline_variables: study_block_9pp,
+   randomize_order: true,
+ };
+
+ var study_procedure_block10_pp = {
+   timeline: [study_instructions123],
+   timeline_variables: study_procedure_block10_pp,
+   randomize_order: true,
+ };
+
+ //test blocks
+ var testing_effect_procedure_block1_pp = {
    timeline: [testing_effect_block],
    timeline_variables: test_block_1pp,
    randomize_order: true,
  };
 
-var pure_testing_effect_procedure_block1 = {
-   timeline: [study_block_instructions, study_procedure, testing_effect_instructions, testing_effect_procedure],
-   //timeline_variables: produce_words1_2,
-   //randomize_order: true,
+ var testing_effect_procedure_block2_pp = {
+   timeline: [testing_effect_block],
+   timeline_variables: test_block_2pp,
+   randomize_order: true,
+ };
+ var testing_effect_procedure_block3_pp = {
+   timeline: [testing_effect_block],
+   timeline_variables: test_block_3pp,
+   randomize_order: true,
+ };
+ var testing_effect_procedure_block4_pp = {
+   timeline: [testing_effect_block],
+   timeline_variables: test_block_4pp,
+   randomize_order: true,
+ };
+ var testing_effect_procedure_block5_pp = {
+   timeline: [testing_effect_block],
+   timeline_variables: test_block_5pp,
+   randomize_order: true,
+ };
+ var testing_effect_procedure_block6_pp = {
+   timeline: [testing_effect_block],
+   timeline_variables: test_block_6pp,
+   randomize_order: true,
+ };
+ var testing_effect_procedure_block7_pp = {
+   timeline: [testing_effect_block],
+   timeline_variables: test_block_7pp,
+   randomize_order: true,
+ };
+ var testing_effect_procedure_block8_pp = {
+   timeline: [testing_effect_block],
+   timeline_variables: test_block_8pp,
+   randomize_order: true,
+ };
+ var testing_effect_procedure_block9_pp = {
+   timeline: [testing_effect_block],
+   timeline_variables: test_block_9pp,
+   randomize_order: true,
+ };
+ var testing_effect_procedure_block10_pp = {
+   timeline: [testing_effect_block],
+   timeline_variables: test_block_10pp,
+   randomize_order: true,
+ };
+
+var pureproduce_testing_effect_procedure = {
+   timeline: [study_block_instructions, study_procedure_block1_pp, testing_effect_instructions, testing_effect_procedure_block1_pp,
+   study_block_instructions, study_procedure_block2_pp, testing_effect_instructions, testing_effect_procedure_block2_pp],
+ };
+
+
+ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                                                     
+                                                                     //***  Pure-read procedure **//
+                                                                    
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//Study Blocks
+var study_procedure_block1_pr = {
+   timeline: [study_instructions123],
+   timeline_variables: study_block_1pr,
+   randomize_order: true,
+ };
+
+ var study_procedure_block2_pr = {
+   timeline: [study_instructions123],
+   timeline_variables: study_block_2pr,
+   randomize_order: true,
+ };
+ var study_procedure_block3_pr = {
+   timeline: [study_instructions123],
+   timeline_variables: study_block_3pr,
+   randomize_order: true,
+ };
+ var study_procedure_block4_pr = {
+   timeline: [study_instructions123],
+   timeline_variables: study_block_4pr,
+   randomize_order: true,
+ };
+ var study_procedure_block5_pr = {
+   timeline: [study_instructions123],
+   timeline_variables: study_block_5pr,
+   randomize_order: true,
+ };
+ var study_procedure_block6_pr = {
+   timeline: [study_instructions123],
+   timeline_variables: study_block_6pr,
+   randomize_order: true,
+ };
+ var study_procedure_block7_pr = {
+   timeline: [study_instructions123],
+   timeline_variables: study_block_7pr,
+   randomize_order: true,
+ };
+ var study_procedure_block8_pr = {
+   timeline: [study_instructions123],
+   timeline_variables: study_block_8pr,
+   randomize_order: true,
+ };
+ var study_procedure_block9_pr = {
+   timeline: [study_instructions123],
+   timeline_variables: study_block_9pr,
+   randomize_order: true,
+ };
+ var study_procedure_block10_pr = {
+   timeline: [study_instructions123],
+   timeline_variables: study_block_10pr,
+   randomize_order: true,
+ };
+
+ var pureread_testing_effect_procedure = {
+   timeline: [study_block_instructions, study_procedure_block1_pp, study_block_instructions, study_procedure_block2_pp], //no testing blocks for the pure read condition
  };
 
 
 
+
+
+
+
+
+
+
+/////////////////////////////////
 
  //test phase instructions presented after study phase is over
 var test_instructions = {
@@ -1144,8 +1581,8 @@ timeline.push(practice_test_instructions_pre);
 timeline.push(practice_test_instructions);
 //timeline.push(practice_test_procedure);
 timeline.push(practice_test_instructions_post);
-
-timeline.push(pure_testing_effect_procedure_block1);
+timeline.push(pureproduce_testing_effect_procedure);
+timeline.push(mixed_testing_effect_procedure_block1);
 
 //timeline.push(study_block_instructions);
 //timeline.push(study_procedure); // this is new

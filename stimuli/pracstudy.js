@@ -11,16 +11,16 @@ pracstudy_block2 = [
     {"stimulus":"<p style='font-size: 48px;'>TEN - PEN</p>","data":{"type":"old","category":"produce","word":"PEN"}},
 ];
 pracstudy_block3 = [
-    {"stimulus":"<p style='font-size: 48px;'>BAD - MAD</p>","data":{"type":"old","category":"read","word":"MAD"}},
-    {"stimulus":"<p style='font-size: 48px;'>LOG - DOG</p>","data":{"type":"old","category":"read","word":"DOG"}},
-    {"stimulus":"<p style='font-size: 48px;'>FAN - MAN</p>","data":{"type":"old","category":"read","word":"MAN"}},
-    {"stimulus":"<p style='font-size: 48px;'>SHEER - CHEER</p>","data":{"type":"old","category":"read","word":"CHEER"}},
+    {"stimulus":"<p style='font-size: 48px;'>BAD - MAD</p>","data":{"type":"old","category":"produce","word":"MAD"}},
+    {"stimulus":"<p style='font-size: 48px;'>LOG - DOG</p>","data":{"type":"old","category":"produce","word":"DOG"}},
+    {"stimulus":"<p style='font-size: 48px;'>FAN - MAN</p>","data":{"type":"old","category":"produce","word":"MAN"}},
+    {"stimulus":"<p style='font-size: 48px;'>SHEER - CHEER</p>","data":{"type":"old","category":"produce","word":"CHEER"}},
 ];
 pracstudy_block4 = [
-    {"stimulus":"<p style='font-size: 48px;'>GRAVE - BRAVE</p>","data":{"type":"old","category":"read","word":"BRAVE"}},
-    {"stimulus":"<p style='font-size: 48px;'>MONEY - HONEY</p>","data":{"type":"old","category":"read","word":"HONEY"}},
-    {"stimulus":"<p style='font-size: 48px;'>BOW - WOW</p>","data":{"type":"old","category":"read","word":"WOW"}},
-    {"stimulus":"<p style='font-size: 48px;'>ROT - LOT</p>","data":{"type":"old","category":"read","word":"LOT"}},
+    {"stimulus":"<p style='font-size: 48px;'>GRAVE - BRAVE</p>","data":{"type":"old","category":"produce","word":"BRAVE"}},
+    {"stimulus":"<p style='font-size: 48px;'>MONEY - HONEY</p>","data":{"type":"old","category":"produce","word":"HONEY"}},
+    {"stimulus":"<p style='font-size: 48px;'>BOW - WOW</p>","data":{"type":"old","category":"produce","word":"WOW"}},
+    {"stimulus":"<p style='font-size: 48px;'>ROT - LOT</p>","data":{"type":"old","category":"produce","word":"LOT"}},
 ];
 
 practest_block1 = [
@@ -36,15 +36,15 @@ practest_block2 = [
     {"stimulus":"<p style='font-size: 48px;'>TEN - ?</p>","data":{"type":"old","category":"produce","word":"PEN"}},
 ];
 practest_block3 = [
-    {"stimulus":"<p style='font-size: 48px;'>LOG - ?</p>","data":{"type":"old","category":"read","word":"DOG"}},
-    {"stimulus":"<p style='font-size: 48px;'>FAN - ?</p>","data":{"type":"old","category":"read","word":"MAN"}},
-    {"stimulus":"<p style='font-size: 48px;'>BAD - ?</p>","data":{"type":"old","category":"read","word":"MAD"}},
-    {"stimulus":"<p style='font-size: 48px;'>SHEER - ?</p>","data":{"type":"old","category":"read","word":"CHEER"}},
+    {"stimulus":"<p style='font-size: 48px;'>LOG - ?</p>","data":{"type":"old","category":"produce","word":"DOG"}},
+    {"stimulus":"<p style='font-size: 48px;'>FAN - ?</p>","data":{"type":"old","category":"produce","word":"MAN"}},
+    {"stimulus":"<p style='font-size: 48px;'>BAD - ?</p>","data":{"type":"old","category":"produce","word":"MAD"}},
+    {"stimulus":"<p style='font-size: 48px;'>SHEER - ?</p>","data":{"type":"old","category":"produce","word":"CHEER"}},
 ];
 practest_block4 = [
-    {"stimulus":"<p style='font-size: 48px;'>GRAVE - ?</p>","data":{"type":"old","category":"read","word":"BRAVE"}},
-    {"stimulus":"<p style='font-size: 48px;'>MONEY - ?</p>","data":{"type":"old","category":"read","word":"HONEY"}},
-    {"stimulus":"<p style='font-size: 48px;'>BOW - ?</p>","data":{"type":"old","category":"read","word":"WOW"}},
-    {"stimulus":"<p style='font-size: 48px;'>ROT - ?</p>","data":{"type":"old","category":"read","word":"LOT"}},
+    {"stimulus":"<p style='font-size: 48px;'>GRAVE - ?</p>","data":{"type":"old","category":"produce","word":"BRAVE"}},
+    {"stimulus":"<p style='font-size: 48px;'>MONEY - ?</p>","data":{"type":"old","category":"produce","word":"HONEY"}},
+    {"stimulus":"<p style='font-size: 48px;'>BOW - ?</p>","data":{"type":"old","category":"produce","word":"WOW"}},
+    {"stimulus":"<p style='font-size: 48px;'>ROT - ?</p>","data":{"type":"old","category":"produce","word":"LOT"}},
 ];
 

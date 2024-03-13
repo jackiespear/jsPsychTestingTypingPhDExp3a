@@ -60,7 +60,22 @@ const result = studywords2.map(({word1, word2})=>{
   return doc;
 }); 
 
-//console.table(result); //This works!!!
+////////     ***** This will shift word2 by 1 position so that the word pairs no longer rhyme for the testing effect procedure 
+// Extracting the word2 elements into a separate array
+var word2Elements = result.map(item => item.word2);
+
+// Shifting the word2 elements by one position
+var shiftedWord2 = word2Elements.slice(1).concat(word2Elements.slice(0, 1));
+
+// Updating the studywords array with the shifted word2 elements
+result.forEach((item, index) => {
+    item.word2 = shiftedWord2[index];
+});
+
+//now save word2 again so that it's saved when '?' replaces the word2 in the testing effect blocks 
+result.forEach((item, index) => {
+  item.word2orig = shiftedWord2[index];
+});
 
 //subsetting the words into 3 arrays for produce words, read words, and new words
 var mixed_words = result.slice(0, 40); //new mixed-list words for the testing effect. produce / read assignment will be random below
@@ -843,25 +858,24 @@ var study_block4_prac = {
 
 var test_block1_prac = {
   timeline: [study_practice],
-  timeline_variables: practest_block1,
   randomize_order: true,
 };
 
 var test_block2_prac = {
   timeline: [study_practice],
-  timeline_variables: practest_block2,
+  //timeline_variables: practest_block2,
   randomize_order: true,
 };
 
 var test_block3_prac = {
   timeline: [study_practice],
-  timeline_variables: practest_block3,
+  //timeline_variables: practest_block3,
   randomize_order: true,
 };
 
 var test_block4_prac = {
   timeline: [study_practice],
-  timeline_variables: practest_block4,
+  //timeline_variables: practest_block4,
   randomize_order: true,
 };
 
@@ -872,14 +886,42 @@ var prac_studyblock_instructions = {
   data: {"phase": "practice"},
 };
 
+var prac_testblock_instructions = {
+  type: "html-keyboard-response",
+  stimulus: testing_effect_instruction_text,
+  choices: ['j'],
+  data: {"phase": "practice"},
+};
+
 var testingeff_block1_prac = {
   timeline: [test_block1_prac, typing_feedback],
   randomize_order: true,
-}
+  timeline_variables: practest_block1,
+};
+var testingeff_block2_prac = {
+  timeline: [test_block2_prac, typing_feedback],
+  randomize_order: true,
+  timeline_variables: practest_block2,
+};
+var testingeff_block3_prac = {
+  timeline: [test_block3_prac, typing_feedback],
+  randomize_order: true,
+  timeline_variables: practest_block3,
+};
+var testingeff_block4_prac = {
+  timeline: [test_block4_prac, typing_feedback],
+  randomize_order: true,
+  timeline_variables: practest_block4,
+};
+
+
 
 //Putting the study words and study instruction together for the PRACTICE phase
  var practice_study_procedure = {
-   timeline: [study_block1_prac, prac_studyblock_instructions, testingeff_block1_prac],
+   timeline: [study_block1_prac, prac_testblock_instructions, testingeff_block1_prac, prac_studyblock_instructions, 
+   study_block2_prac, prac_testblock_instructions, testingeff_block2_prac, prac_studyblock_instructions,
+   study_block3_prac, prac_testblock_instructions, testingeff_block3_prac, prac_studyblock_instructions,
+   study_block4_prac, prac_testblock_instructions, testingeff_block4_prac],
    //randomize_order: true,
    //timeline_variables: pracstudy,
  };
@@ -984,7 +1026,7 @@ var study_instructions123 = {
     html:  '<p> <input type="text" onkeydown="return (event.keycode!=13);" id="test-resp-box" name="response" size="10" style=color:white;/></p>', //color being white will not mirror typed word to the screen
     post_trial_gap: 500, // changing this to 3 seconds so that each trail is equal (e.g. produce vs. read),
     trial_duration: 3000, //change back to 3000
-    data: {phase:"study", category: jsPsych.timelineVariable("category"), type: jsPsych.timelineVariable("type"), word1: jsPsych.timelineVariable("word1"), word2: jsPsych.timelineVariable("word2")},
+    data: {phase:"study", block: "study", category: jsPsych.timelineVariable("category"), type: jsPsych.timelineVariable("type"), word1: jsPsych.timelineVariable("word1"), word2: jsPsych.timelineVariable("word2"), word2orig: jsPsych.timelineVariable("word2orig")},
     autofocus: 'test-resp-box',
     //timeline_variables: study_instructions,
     //randomize_order:true,
@@ -1073,7 +1115,7 @@ var study_instructions123 = {
     html:  '<p> <input type="text" onkeydown="return (event.keycode!=13);" id="test-resp-box" name="response" size="10" style=color:white;/></p>', //color being white will not mirror typed word to the screen
     post_trial_gap: 500, // changing this to 3 seconds so that each trail is equal (e.g. produce vs. read),
     trial_duration: 3000, //change back to 3000
-    data: {phase:"study", category: jsPsych.timelineVariable("category"), type: jsPsych.timelineVariable("type"), word1: jsPsych.timelineVariable("word1"), word2: jsPsych.timelineVariable("word2")},
+    data: {phase:"study", block: "testing_eff", category: jsPsych.timelineVariable("category"), type: jsPsych.timelineVariable("type"), word1: jsPsych.timelineVariable("word1"), word2: jsPsych.timelineVariable("word2"), word2orig: jsPsych.timelineVariable("word2orig")},
     autofocus: 'test-resp-box',
     //timeline_variables: study_instructions,
     //randomize_order:true,

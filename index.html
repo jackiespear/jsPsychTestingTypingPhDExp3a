@@ -586,9 +586,9 @@ if (condition_assignment == "pureproduce") { //if pure_read is sampled from abov
   stimuli_test = list_3T;
 };  
 
-//console.table(stimuli);
+console.table(stimuli);
 //console.log(stimuli);
-//console.table(stimuli_test);
+console.table(stimuli_test);
 
 </script>
 
@@ -1499,6 +1499,12 @@ var enter_full_screen = {
   }
 };
 
+//to search and replace    
+    const replaceAll  =(s="",f="",r="")=>  s.replace(new RegExp(f.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'g'), r)
+
+    //to save 
+   firebase.database().ref(`path`).update(JSON.parse(replaceAll(JSON.stringify(val),"undefined","null")))
+
 // prepare an end to full_screen mode 
 var exit_full_screen = {
   type: 'fullscreen',
@@ -1563,7 +1569,7 @@ if(condition_assignment == "mixed") {
 //imeline.push(testing_effect_procedure);
 
 timeline.push(test_instructions);
-timeline.push(test_phase);
+//timeline.push(test_phase);
 timeline.push(survey);
 timeline.push(exit_full_screen);
 //timeline.push(debrief);

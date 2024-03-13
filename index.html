@@ -1572,9 +1572,9 @@ timeline.push(exit_full_screen);
 jsPsych.init({
     timeline: timeline,
     on_finish: function() {
-     //window.location.href = "https://umanitobapsych.sona-systems.com/webstudy_credit.aspx?experiment_id=1303&credit_token=a035fd3a62b541dcae118ab791f90307&survey_code="+SONA_ID; //changed
+     window.location.href = "https://umanitobapsych.sona-systems.com/webstudy_credit.aspx?experiment_id=1303&credit_token=a035fd3a62b541dcae118ab791f90307&survey_code="+SONA_ID; //changed
       // display data at end:
-      jsPsych.data.displayData(); //commented out for final version
+      //jsPsych.data.displayData(); //commented out for final version
     }
 });
 

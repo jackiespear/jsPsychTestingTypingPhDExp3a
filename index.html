@@ -131,6 +131,8 @@ for (var i = 0; i < read_words_test.length; i++) {
   read_words_test[i].category = text_test_read_category;
 };
 
+//console.table(read_words_test);
+
 //adding formatting to the new words at test
 for (var i = 0; i < new_words_test.length; i++) {
   //new_words_test[i].word2 = text_test_all + new_words_test[i].word2 + text_test_all2;
@@ -139,6 +141,7 @@ for (var i = 0; i < new_words_test.length; i++) {
 };
 //console.table(new_words_test);
 var study_words_pureproduce = produce_words.concat(read_words);
+console.table(study_words_pureproduce);     //// ****** category is not defined here!
 var study_words_pureread = produce_words.concat(read_words);
 
 //make the list of test words to present during the test phase                                  **** this is now being defined below as produce/read is random
@@ -358,7 +361,7 @@ for (var i = 0; i < mixed_list_produce_block10.length; i++) {
 
 //var study_words_pureproduce = produce_words.concat(read_words);
 
-study_words_pureproduce = JSON.stringify(study_words_pureproduce).replace(/red/g, 'green');
+//study_words_pureproduce = JSON.stringify(study_words_pureproduce).replace(/red/g, 'green');
 study_words_pureproduce = JSON.parse(study_words_pureproduce);
 
 ///              ********
@@ -683,6 +686,8 @@ firebase.initializeApp(firebaseConfig);
 /* experiment parameters */
 // generate a random subject ID with 15 characters
 var subject_id = jsPsych.randomization.randomID(15);
+
+console.log(subject_id);
 
 // get the id number for the SONA participant so that we can grant credits automatically
 var SONA_ID = getUrlParam('id','Empty');
@@ -1499,11 +1504,8 @@ var enter_full_screen = {
   }
 };
 
-//to search and replace    
-    const replaceAll  =(s="",f="",r="")=>  s.replace(new RegExp(f.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'g'), r)
 
-    //to save 
-   firebase.database().ref(`path`).update(JSON.parse(replaceAll(JSON.stringify(val),"undefined","null")))
+
 
 // prepare an end to full_screen mode 
 var exit_full_screen = {
@@ -1570,7 +1572,7 @@ if(condition_assignment == "mixed") {
 
 timeline.push(test_instructions);
 //timeline.push(test_phase);
-timeline.push(survey);
+//timeline.push(survey);
 timeline.push(exit_full_screen);
 //timeline.push(debrief);
 
@@ -1578,9 +1580,9 @@ timeline.push(exit_full_screen);
 jsPsych.init({
     timeline: timeline,
     on_finish: function() {
-     window.location.href = "https://umanitobapsych.sona-systems.com/webstudy_credit.aspx?experiment_id=1303&credit_token=a035fd3a62b541dcae118ab791f90307&survey_code="+SONA_ID; //changed
+     //window.location.href = "https://umanitobapsych.sona-systems.com/webstudy_credit.aspx?experiment_id=1303&credit_token=a035fd3a62b541dcae118ab791f90307&survey_code="+SONA_ID; //changed
       // display data at end:
-      //jsPsych.data.displayData(); //commented out for final version
+      jsPsych.data.displayData(); //commented out for final version
     }
 });
 

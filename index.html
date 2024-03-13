@@ -101,7 +101,6 @@ var produce_words_test = produce_words.map(({word2})=>{ //subsetting produced wo
   let doc={word2};
   return doc;
 });
-//console.table(produce_words_test);
 
 var read_words_test = read_words.map(({word2})=>{ //subsetting read words to be only 1 word for the test words
   let doc={word2};
@@ -284,11 +283,15 @@ for (var i = 0; i < read_words_mixed.length; i++) {       //save these to the mi
 var test_words_mixed = read_words_mixed.concat(produce_words_mixed, new_words_test);
 var test_words_mixed_final = JSON.parse(JSON.stringify(test_words_mixed));
 
+var test_words_mixed_final = test_words_mixed_final.map(({word2, type, category})=>{ //subsetting produced words to be only 1 word for the test words
+  let doc={word2, type, category};
+  return doc;
+});
+console.table(test_words_mixed_final);
+
 /*for (var i = 0; i < test_words_mixed_final.length; i++) {
   test_words_mixed_final[i].word2 = text_test_all + test_words_mixed_final[i].word2 + text_test_all2;
 }; */
-
-console.table(test_words_mixed_final);
 
 //mixed-list reformatting of word-pairs
 for (var i = 0; i < mixed_list_produce_block1.length; i++) {

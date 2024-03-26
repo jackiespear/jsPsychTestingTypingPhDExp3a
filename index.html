@@ -43,13 +43,9 @@ function shuffle_variable (studywords_list) {
 } 
 studywords = [];
 studywords = shuffle_variable(words); //this will shuffle the columns
-//console.log(studywords);
-//console.table(studywords);
 
 studywords=jsPsych.randomization.repeat(studywords, 1); //this will shuffle the rows
 //console.log(studywords[1]);
-//console.log(studywords[1].word1);
-//console.table(studywords); 
 
 studywords2 = [];
 studywords2 = studywords; 
@@ -60,17 +56,19 @@ const result = studywords2.map(({word1, word2})=>{
   return doc;
 }); 
 
-////////     ***** This will shift word2 by 1 position so that the word pairs no longer rhyme for the testing effect procedure 
+////////     ***** This will shift word2 by 11 positions so that the word pairs no longer rhyme for the testing effect procedure 
 // Extracting the word2 elements into a separate array
 var word2Elements = result.map(item => item.word2);
 
-// Shifting the word2 elements by one position
-var shiftedWord2 = word2Elements.slice(1).concat(word2Elements.slice(0, 1));
+// Shifting the word2 elements by five positions
+var shiftedWord2 = word2Elements.slice(10).concat(word2Elements.slice(0, 10));
 
 // Updating the studywords array with the shifted word2 elements
 result.forEach((item, index) => {
     item.word2 = shiftedWord2[index];
 });
+
+console.table(result);
 
 //now save word2 again so that it's saved when '?' replaces the word2 in the testing effect blocks 
 result.forEach((item, index) => {
@@ -106,20 +104,17 @@ var read_words_test = read_words.map(({word2})=>{ //subsetting read words to be 
   let doc={word2};
   return doc;
 });
-//console.table(read_words_test);
 
 var new_words_test = new_words.map(({word2})=>{ //subsetting new words to be only 1 word for the test words
   let doc={word2};
   return doc;
 });
-//console.table(new_words_test);
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 //adding formatting to the produce words at test
 for (var i = 0; i < produce_words_test.length; i++) {
   produce_words_test[i].word2 = text_test_all + produce_words_test[i].word2 + text_test_all2;// + text_test_produce;
-  produce_words_test[i].type = text_test_produce_type;  ///            !!! this is adding data as a third object in the data to be called, and then calls the string to be added in this object
+  produce_words_test[i].type = text_test_produce_type;  ///          
   produce_words_test[i].category = text_test_produce_category;
 };
 //console.table(produce_words_test);
@@ -131,23 +126,16 @@ for (var i = 0; i < read_words_test.length; i++) {
   read_words_test[i].category = text_test_read_category;
 };
 
-//console.table(read_words_test);
-
 //adding formatting to the new words at test
 for (var i = 0; i < new_words_test.length; i++) {
   //new_words_test[i].word2 = text_test_all + new_words_test[i].word2 + text_test_all2;
   new_words_test[i].type = text_test_new_type;
   new_words_test[i].category = text_test_new_category;
 };
-//console.table(new_words_test);
 
 var study_words_pureproduce = produce_words.concat(read_words);
-//console.table(study_words_pureproduce);     //// ****** category is not defined here!
 var study_words_pureread = produce_words.concat(read_words);
 
-//make the list of test words to present during the test phase                                  **** this is now being defined below as produce/read is random
-//var test_words_mixed = produce_words_test.concat(read_words_test, new_words_test);
-//console.table(test_words_mixed);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 //creating text variables to concatenate onto each word for the study phase
 var text_produce1 = '<span style="color: green">';
@@ -326,8 +314,6 @@ for (var i = 0; i < mixed_list_produce_block10.length; i++) {
 var produce_words_mixed = mixed_list_produce_block1.concat(mixed_list_produce_block2, mixed_list_produce_block3, mixed_list_produce_block4, mixed_list_produce_block5,
 mixed_list_produce_block6, mixed_list_produce_block7, mixed_list_produce_block8, mixed_list_produce_block9, mixed_list_produce_block10);
 
-
-
 //now add data tags to read words. 
 //can concatenate these first as they won't be presented during the testing effect phase
 var read_words_mixed = mixed_list_read_block1.concat(mixed_list_read_block2, mixed_list_read_block3, mixed_list_read_block4, mixed_list_read_block5, 
@@ -353,9 +339,6 @@ var test_words_mixed_final = test_words_mixed_final.map(({word2, type, category}
 console.log('this is the mixed-list test words array below');
 console.table(test_words_mixed_final);
 
-/*for (var i = 0; i < test_words_mixed_final.length; i++) {
-  test_words_mixed_final[i].word2 = text_test_all + test_words_mixed_final[i].word2 + text_test_all2;
-}; */
 
 //mixed-list reformatting of word-pairs
 for (var i = 0; i < mixed_list_produce_block1.length; i++) {
@@ -420,40 +403,17 @@ for (var i = 0; i < mixed_list_produce_block10.length; i++) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //formatting the test words for the pure produce condition. all is the same execept for condition and no read words
 
-//var study_words_pureproduce = produce_words.concat(read_words);
-
-//study_words_pureproduce = JSON.stringify(study_words_pureproduce).replace(/red/g, 'green');
 var study_words_pureproduce = JSON.parse(JSON.stringify(study_words_pureproduce));
 
 ///              ********
 
 var test_words_pureproduce = JSON.parse(JSON.stringify(test_words_mixed_final));                
 
-// changing the condition in the test words to be pureproduce 
-//test_words_pureproduce = JSON.stringify(test_words_pureproduce).replace(/mixed/g, 'pureproduce');
-//test_words_pureproduce = JSON.parse(test_words_pureproduce);
-
-
-
 //replacing all instances of 'read' to produce
 test_words_pureproduce = JSON.stringify(test_words_pureproduce).replace(/read/g, 'produce');
 test_words_pureproduce = JSON.parse(test_words_pureproduce);
 
-
-
 //formatting the study words
-//var study_words_pureproduce = study_words_mixed;
-// changing the condition in the test words to be pureproduce 
-//study_words_pureproduce = JSON.stringify(study_words_pureproduce).replace(/mixed/g, 'pureproduce');
-//study_words_pureproduce = JSON.parse(study_words_pureproduce);
-
-// changing the red to green in the test words to be pureproduce 
-//study_words_pureproduce = JSON.stringify(study_words_pureproduce).replace(/red/g, 'green');
-//study_words_pureproduce = JSON.parse(study_words_pureproduce);
-
-// changing the category to be all produce (no read) 
-//study_words_pureproduce = JSON.stringify(study_words_pureproduce).replace(/read/g, 'produce');
-//study_words_pureproduce = JSON.parse(study_words_pureproduce);
 
 var study_words_pureproduce_to_block = JSON.parse(JSON.stringify(study_words_pureproduce));        
 var study_words_pureproduce2 = JSON.parse(JSON.stringify(study_words_pureproduce));                   
@@ -563,16 +523,11 @@ for (var i = 0; i < test_block_10pp.length; i++) {
 };
 
 
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////        Make study/test lists for the pure read list            ////////////////////// 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //formatting the test words for the pure read condition. all is the same execept for condition and no produce words
 var test_words_pureread = JSON.parse(JSON.stringify(test_words_mixed_final));     
-
-// changing the condition in the test words to be pureread 
-//test_words_pureread = JSON.stringify(test_words_pureread).replace(/mixed/g, 'pureread');
-//test_words_pureread = JSON.parse(test_words_pureread);
 
 //replacing all instances of 'produce' to read
 test_words_pureread = JSON.stringify(test_words_pureread).replace(/produce/g, 'read');
@@ -582,18 +537,6 @@ test_words_pureread = JSON.parse(test_words_pureread);
 //formatting the study words /////////////////////
 
 var study_words_pureread = JSON.parse(JSON.stringify(study_words_pureproduce2));
-
-//var study_words_pureread = produce_words.concat(read_words);
-
-// changing the condition in the study words to be pureread 
-//study_words_pureread = JSON.stringify(study_words_pureread).replace(/mixed/g, 'pureread');
-//study_words_pureread = JSON.parse(study_words_pureread);
-
-
-
-// changing the green to red in the study words to be pureread 
-//study_words_pureread = JSON.stringify(study_words_pureread).replace(/green/g, 'red');
-//study_words_pureread = JSON.parse(study_words_pureread);
 
 
 // changing the category to be all read (no produce)
@@ -616,13 +559,11 @@ var study_block_10pr = study_words_pureread.slice(36, 40); //study block 10
 //no testing blocks needed. for pure read condition s's will study 4 blocks of words at  a time, then go straight to the recognition test phase.
 
 
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  Randomly Assign one of the three between-subjects conditions: mixed-list, pure-produce, or pure-read  //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-var condition_assignment = jsPsych.randomization.sampleWithoutReplacement(['mixed', 'mixed', 'mixed'], 1)[0];
+var condition_assignment = jsPsych.randomization.sampleWithoutReplacement(['pureproduce', 'pureread', 'mixed'], 1)[0];
 jsPsych.data.addProperties({
   condition: condition_assignment
 });
@@ -656,10 +597,6 @@ if (condition_assignment == "pureproduce") { //if pure_read is sampled from abov
   //stimuli = list_3;
   stimuli_test = list_3T;
 };  
-
-//console.table(stimuli);
-//console.log(stimuli);
-//console.table(stimuli_test);
 
 </script>
 
@@ -853,7 +790,6 @@ var instructions = {
     }
   },
 };
-
 
 
 //Present the instruction to produce or read during PRACTICE phase
@@ -1053,8 +989,6 @@ var practice_test_instructions_pre = {
   data: {"phase": "Practice_Test_Instructions",
 },
 };
-
-
 
 
 
@@ -1258,8 +1192,8 @@ var mixed_testing_effect_procedure_block1 = {
   study_block_instructions, study_procedure_block8, testing_effect_instructions, testing_effect_procedure_block8,
   study_block_instructions, study_procedure_block9, testing_effect_instructions, testing_effect_procedure_block9,
   study_block_instructions, study_procedure_block10, testing_effect_instructions, testing_effect_procedure_block10,
-],
- };
+  ],
+};
 
  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                      
@@ -1315,9 +1249,10 @@ var study_procedure_block1_pp = {
  };
  var study_procedure_block10_pp = {
    timeline: [study_instructions123],
-   timeline_variables: study_procedure_block10_pp,
+   timeline_variables: study_block_10pp,
    randomize_order: true,
  };
+
 
  //test blocks
  var testing_effect_procedure_block1_pp = {
@@ -1632,18 +1567,17 @@ var no_consent = {
 };
 
 
-
 /*set up experiment structure*/
 var timeline = [];
-//timeline.push(consent);
-//timeline.push(no_consent);
-//timeline.push(welcome);
-//timeline.push(enter_full_screen);
+timeline.push(consent);
+timeline.push(no_consent);
+timeline.push(welcome);
+timeline.push(enter_full_screen);
 timeline.push(instructions);
-//timeline.push(practice_test_instructions_pre);
-//timeline.push(practice_study_procedure);
+timeline.push(practice_test_instructions_pre);
+timeline.push(practice_study_procedure);
 timeline.push(practice_test_instructions);
-//timeline.push(practice_test_procedure);
+timeline.push(practice_test_procedure);
 timeline.push(practice_test_instructions_post);
 
 if(condition_assignment == "mixed") {
@@ -1653,15 +1587,6 @@ if(condition_assignment == "mixed") {
 } else if (condition_assignment == "pureread") {
   timeline.push(pureread_testing_effect_procedure);
 };
-
-//timeline.push(pureread_testing_effect_procedure);
-//timeline.push(pureproduce_testing_effect_procedure);
-//timeline.push(mixed_testing_effect_procedure_block1);
-
-//timeline.push(study_block_instructions);
-//timeline.push(study_procedure); // this is new
-//timeline.push(testing_effect_instructions);
-//imeline.push(testing_effect_procedure);
 
 timeline.push(test_instructions);
 timeline.push(test_phase);

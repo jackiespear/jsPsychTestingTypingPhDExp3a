@@ -14,7 +14,7 @@ pracstudy_block3 = [
     {"stimulus":"<p style='font-size: 48px;'>BAD - CHEER</p>","data":{"type":"old","category":"produce","word":"CHEER"}},
     {"stimulus":"<p style='font-size: 48px;'>LOG - MAD</p>","data":{"type":"old","category":"produce","word":"MAD"}},
     {"stimulus":"<p style='font-size: 48px;'>FAN - DOG</p>","data":{"type":"old","category":"produce","word":"DOG"}},
-    {"stimulus":"<p style='font-size: 48px;'>SHEER - MAD</p>","data":{"type":"old","category":"produce","word":"MAD"}},
+    {"stimulus":"<p style='font-size: 48px;'>SHEER - MAN</p>","data":{"type":"old","category":"produce","word":"MAN"}},
 ];
 pracstudy_block4 = [
     {"stimulus":"<p style='font-size: 48px;'>GRAVE - LOT</p>","data":{"type":"old","category":"produce","word":"LOT"}},
